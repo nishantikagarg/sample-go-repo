@@ -1,4 +1,4 @@
-module petstore_go_sdk
+module github.com/nishantikagarg/sample-go-repo/petstore_go_sdk
 
 go 1.14
 
