@@ -14,7 +14,7 @@
 */
 package response
 import (
-  import1 "petstore_go_sdk/models/common/v1/config"
+  import1 "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/models/common/v1/config"
 )
 
 /**
