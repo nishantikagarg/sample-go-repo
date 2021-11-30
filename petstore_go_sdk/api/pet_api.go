@@ -3,8 +3,8 @@ package api
 
 import (
     "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/client"
-	"reflect"
 	import1 "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/models/petstore/v1/defaultapi"
+	"reflect"
 	"encoding/json"
 	"net/http"
     "net/url"
