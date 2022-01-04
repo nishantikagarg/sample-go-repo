@@ -2,8 +2,8 @@
 package api
 
 import (
-    "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v99/client"
-	import1 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v99/models/vmm/v4/images"
+    "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/client"
+	import1 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/vmm/v4/images"
 	"encoding/json"
 	"net/http"
     "net/url"

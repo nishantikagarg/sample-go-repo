@@ -14,14 +14,14 @@
 */
 package templates
 import (
-  import1 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v99/models/common/v1/config"
-  import2 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v99/models/common/v1/response"
+  import1 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/common/v1/config"
+  import2 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/common/v1/response"
   "encoding/json"
   "errors"
   "fmt"
   "time"
-  import4 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v99/models/vmm/v4/config"
-  import3 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v99/models/vmm/v4/error"
+  import4 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/vmm/v4/config"
+  import3 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/vmm/v4/error"
 )
 
 /**

@@ -1,4 +1,4 @@
-module github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v99
+module github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16
 
 go 1.17
 
