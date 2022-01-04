@@ -1,6 +1,4 @@
 //Api classes for Catalog REST API's golang SDK
-
-// dummy comment
 package api
 
 import (
