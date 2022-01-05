@@ -1,4 +1,4 @@
-//The api client for Petstore API project's golang SDK
+//The api client for petstore's golang SDK
 package client
 
 import (
