@@ -1,9 +1,10 @@
-//Api classes for Storage APIs's golang SDK
+//Api classes for storage's golang SDK
 package api
 
 import (
     "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/client"
 	import1 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/storage/v4/config"
+	import2 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/common/v1/config"
 	"encoding/json"
 	"net/http"
     "net/url"
@@ -68,7 +69,7 @@ func (api *VolumeGroupApi) AssociateCategory(body *import1.CategoryEntityReferen
     Attach iSCSI initiator to a Volume Group identified by {volumeGroupExtId}
 
     parameters:-
-    -> body (storage.v4.config.IscsiClient) (required) : A model that represents iSCSI Client that can be associated with a volume group as an external attachment.
+    -> body (storage.v4.config.IscsiClient) (required) : A model that represents iSCSI client that can be associated with a Volume Group as an external attachment.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
 
     returns: (storage.v4.config.AttachIscsiClientApiResponse, error)
@@ -109,7 +110,7 @@ func (api *VolumeGroupApi) AttachIscsiClient(body *import1.IscsiClient, volumeGr
     Attach VM to a Volume Group identified by {volumeGroupExtId}.
 
     parameters:-
-    -> body (storage.v4.config.VmAttachment) (required) : A model that represents a VM reference that can be associated with a volume group as a hypervisor attachment.
+    -> body (storage.v4.config.VmAttachment) (required) : A model that represents a VM reference that can be associated with a Volume Group as a hypervisor attachment.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
 
     returns: (storage.v4.config.AttachVmApiResponse, error)
@@ -150,7 +151,7 @@ func (api *VolumeGroupApi) AttachVm(body *import1.VmAttachment, volumeGroupExtId
     Create a new Volume Disk.
 
     parameters:-
-    -> body (storage.v4.config.VolumeDisk) (required) : A model that represents volume disk which is associated with a volume group, and is supported by a backing file on DSF.
+    -> body (storage.v4.config.VolumeDisk) (required) : A model that represents Volume Disk which is associated with a Volume Group, and is supported by a backing file on DSF.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
 
     returns: (storage.v4.config.CreateVolumeDiskApiResponse, error)
@@ -304,7 +305,7 @@ func (api *VolumeGroupApi) DeleteVolumeGroupById(extId string) (*import1.DeleteV
 
     parameters:-
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
-    -> clientId (string) (required) : The external identifier of the iSCSI Client.
+    -> clientId (string) (required) : The external identifier of the iSCSI client.
 
     returns: (storage.v4.config.DetachIscsiClientApiResponse, error)
 */
@@ -463,7 +464,7 @@ func (api *VolumeGroupApi) GetCategoryAssociations(volumeGroupExtId string, page
 
 /**
     GetExternalAttachments
-    Query the list of External Attachments for a Volume Group identified by {volumeGroupExtId}.
+    Query the list of external attachments for a Volume Group identified by {volumeGroupExtId}.
 
     parameters:-
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
@@ -593,7 +594,7 @@ func (api *VolumeGroupApi) GetVolumeDiskById(volumeGroupExtId string, diskExtId 
 
 /**
     GetVolumeDisks
-    Query the list of disks corresponding to a volume group identified by {volumeGroupExtId}.
+    Query the list of disks corresponding to a Volume Group identified by {volumeGroupExtId}.
 
     parameters:-
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
@@ -669,6 +670,42 @@ func (api *VolumeGroupApi) GetVolumeGroupById(extId string) (*import1.GetVolumeG
     	return nil, err
 	}
     unmarshalledResp := new(import1.GetVolumeGroupApiResponse)
+    json.Unmarshal(responseBody, &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+/**
+    Fetches metadata information associated with a Volume Group.
+    Query for metadata information which is associated with the Volume Group identified by {volumeGroupExtId}.
+
+    parameters:-
+    -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+
+    returns: (storage.v4.config.GetVolumeGroupMetadataInfoApiResponse, error)
+*/
+func (api *VolumeGroupApi) GetVolumeGroupMetadataInfo(volumeGroupExtId string) (*import1.GetVolumeGroupMetadataInfoApiResponse, error) {
+    uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/metadata-info"
+
+
+    // Path Params
+    uri = strings.Replace(uri, "{"+"volumeGroupExtId"+"}", url.PathEscape(client.ParameterToString(volumeGroupExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header 
+    contentTypes := []string{}
+
+    // to determine the Accept header 
+	accepts := []string{"application/json"} 
+
+    authNames := []string{}
+
+    responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+    if nil != err || nil == responseBody{
+    	return nil, err
+	}
+    unmarshalledResp := new(import1.GetVolumeGroupMetadataInfoApiResponse)
     json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
@@ -831,10 +868,10 @@ func (api *VolumeGroupApi) ResumeVolumeGroupSynchronousReplication(volumeGroupEx
 
 /**
     RevertVolumeGroup
-    Revert Volume Group identified by {volumeGroupExtId}. This does an in-place Volume Group restore from a specified Volume Group Recovery Point.
+    Revert Volume Group identified by {volumeGroupExtId}. This does an in-place Volume Group restore from a specified Volume Group recovery point.
 
     parameters:-
-    -> body (storage.v4.config.VolumeGroupRevertSpec) (required) : Specify the Volume Group Recovery Point ID to which the Volume Group would be reverted.
+    -> body (storage.v4.config.VolumeGroupRevertSpec) (required) : Specify the Volume Group recovery point Id to which the Volume Group would be reverted.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
 
     returns: (storage.v4.config.RevertVolumeGroupApiResponse, error)
@@ -875,7 +912,7 @@ func (api *VolumeGroupApi) RevertVolumeGroup(body *import1.VolumeGroupRevertSpec
     Update a Volume Disk identified by {diskExtId}.
 
     parameters:-
-    -> body (storage.v4.config.VolumeDisk) (required) : A model that represents volume disk which is associated with a volume group, and is supported by a backing file on DSF.
+    -> body (storage.v4.config.VolumeDisk) (required) : A model that represents Volume Disk which is associated with a Volume Group, and is supported by a backing file on DSF.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
     -> diskExtId (string) (required) : The external identifier of the Volume Disk.
 
@@ -950,6 +987,47 @@ func (api *VolumeGroupApi) UpdateVolumeGroupById(body *import1.VolumeGroup, extI
     	return nil, err
 	}
     unmarshalledResp := new(import1.UpdateVolumeGroupApiResponse)
+    json.Unmarshal(responseBody, &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+/**
+    Updates metadata information associated with a Volume Group.
+    Update the metadata information associated with the Volume Group identified by {volumeGroupExtId}.
+
+    parameters:-
+    -> body (common.v1.config.Metadata) (required) : The list of metadata information associated with the Volume Group to be updated.
+    -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+
+    returns: (storage.v4.config.UpdateVolumeGroupMetadataInfoApiResponse, error)
+*/
+func (api *VolumeGroupApi) UpdateVolumeGroupMetadataInfo(body *import2.Metadata, volumeGroupExtId string) (*import1.UpdateVolumeGroupMetadataInfoApiResponse, error) {
+    uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/update-metadata-info"
+
+    // verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+    // Path Params
+    uri = strings.Replace(uri, "{"+"volumeGroupExtId"+"}", url.PathEscape(client.ParameterToString(volumeGroupExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header 
+    contentTypes := []string{"application/json"}
+
+    // to determine the Accept header 
+	accepts := []string{"application/json"} 
+
+    authNames := []string{}
+
+    responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+    if nil != err || nil == responseBody{
+    	return nil, err
+	}
+    unmarshalledResp := new(import1.UpdateVolumeGroupMetadataInfoApiResponse)
     json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }

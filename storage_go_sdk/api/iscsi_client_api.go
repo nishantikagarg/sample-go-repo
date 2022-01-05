@@ -1,4 +1,4 @@
-//Api classes for Storage APIs's golang SDK
+//Api classes for storage's golang SDK
 package api
 
 import (
@@ -27,7 +27,7 @@ func NewIscsiClientApi() *IscsiClientApi {
     Query the iSCSI client identified by {clientId}.
 
     parameters:-
-    -> clientId (string) (required) : The external identifier of the iSCSI Client.
+    -> clientId (string) (required) : The external identifier of the iSCSI client.
 
     returns: (storage.v4.config.GetIscsiClientApiResponse, error)
 */
@@ -106,8 +106,8 @@ func (api *IscsiClientApi) GetIscsiClients(page_ *int, limit_ *int) (*import1.Ge
     Modify an existing iSCSI client configuration identified by {clientId}.
 
     parameters:-
-    -> body (storage.v4.config.IscsiClient) (required) : A model that represents iSCSI Client that can be associated with a volume group as an external attachment.
-    -> clientId (string) (required) : The external identifier of the iSCSI Client.
+    -> body (storage.v4.config.IscsiClient) (required) : A model that represents iSCSI client that can be associated with a Volume Group as an external attachment.
+    -> clientId (string) (required) : The external identifier of the iSCSI client.
 
     returns: (storage.v4.config.UpdateIscsiClientApiResponse, error)
 */

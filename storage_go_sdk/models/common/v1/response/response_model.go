@@ -10,7 +10,7 @@
  */
 
 /*
-  Module common.v1.response of Storage APIs
+  Nutanix Standard Response Format
 */
 package response
 import (

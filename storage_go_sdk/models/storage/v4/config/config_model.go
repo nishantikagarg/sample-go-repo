@@ -10,7 +10,7 @@
  */
 
 /*
-  config
+  Module storage.v4.config of Storage APIs
 */
 package config
 import (
@@ -701,7 +701,7 @@ func (p *DisassociateCategoryApiResponse) SetData(v interface{}) error {
 
 
 /**
-Storage features for the Volume disks.
+Storage features for the Volume Disks.
 */
 type DiskStorageFeatures struct {
   
@@ -730,7 +730,7 @@ func NewDiskStorageFeatures() *DiskStorageFeatures {
 
 
 /**
-Performance setting to avoid down migration of data from the hot tier. When specified, all the virtual disks of the volume group are pinned to the higher tier, unless overrides are specified for some of the virtual disks.
+Performance setting to avoid down migration of data from the hot tier. When specified, all the virtual disks of the Volume Group are pinned to the higher tier, unless overrides are specified for some of the virtual disks.
 */
 type FlashMode struct {
   
@@ -1199,6 +1199,61 @@ func (p *GetVolumeGroupApiResponse) SetData(v interface{}) error {
 
 
 /**
+REST Response for all response codes in api path /storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/metadata-info Get operation
+*/
+type GetVolumeGroupMetadataInfoApiResponse struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  
+  */
+  DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+  
+  Data *OneOfGetVolumeGroupMetadataInfoApiResponseData `json:"data,omitempty"`
+  
+  Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetVolumeGroupMetadataInfoApiResponse() *GetVolumeGroupMetadataInfoApiResponse {
+  p := new(GetVolumeGroupMetadataInfoApiResponse)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "storage.v4.config.GetVolumeGroupMetadataInfoApiResponse"
+  p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.GetVolumeGroupMetadataInfoApiResponse"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+func (p *GetVolumeGroupMetadataInfoApiResponse) GetData() interface{} {
+  if nil == p.Data {
+    return nil
+  }
+  return p.Data.GetValue()
+}
+
+func (p *GetVolumeGroupMetadataInfoApiResponse) SetData(v interface{}) error {
+  if nil == p.Data {
+    p.Data = NewOneOfGetVolumeGroupMetadataInfoApiResponseData()
+  }
+  e := p.Data.SetValue(v)
+  if nil == e {
+    if nil == p.DataItemDiscriminator_ {
+      p.DataItemDiscriminator_ = new(string)
+    }
+    *p.DataItemDiscriminator_ = *p.Data.Discriminator
+  }
+  return e
+}
+
+
+
+/**
 REST Response for all response codes in api path /storage/v4.0.a3/config/volume-groups Get operation
 */
 type GetVolumeGroupsApiResponse struct {
@@ -1254,7 +1309,7 @@ func (p *GetVolumeGroupsApiResponse) SetData(v interface{}) error {
 
 
 /**
-A model that represents iSCSI Client that can be associated with a volume group as an external attachment.
+A model that represents iSCSI client that can be associated with a Volume Group as an external attachment.
 */
 type IscsiClient struct {
   
@@ -1264,11 +1319,11 @@ type IscsiClient struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /**
-  iSCSI initiator Client Secret in case of CHAP authentication. This field should not be provided in case the authentication type is not set to CHAP.
+  iSCSI initiator client secret in case of CHAP authentication. This field should not be provided in case the authentication type is not set to CHAP.
   */
   ClientSecret *string `json:"clientSecret,omitempty"`
   /**
-  The UUID of cluster that will host the iSCSI Client.
+  The UUID of the cluster that will host the iSCSI client.
   */
   ClusterReference *string `json:"clusterReference,omitempty"`
   
@@ -1278,7 +1333,7 @@ type IscsiClient struct {
   */
   ExtId *string `json:"extId,omitempty"`
   /**
-  iSCSI Initiator Name.
+  iSCSI initiator name.
   */
   IscsiInitiatorName *string `json:"iscsiInitiatorName,omitempty"`
   
@@ -1319,11 +1374,11 @@ type IscsiClientProjection struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /**
-  iSCSI initiator Client Secret in case of CHAP authentication. This field should not be provided in case the authentication type is not set to CHAP.
+  iSCSI initiator client secret in case of CHAP authentication. This field should not be provided in case the authentication type is not set to CHAP.
   */
   ClientSecret *string `json:"clientSecret,omitempty"`
   /**
-  The UUID of cluster that will host the iSCSI Client.
+  The UUID of the cluster that will host the iSCSI client.
   */
   ClusterReference *string `json:"clusterReference,omitempty"`
   
@@ -1333,7 +1388,7 @@ type IscsiClientProjection struct {
   */
   ExtId *string `json:"extId,omitempty"`
   /**
-  iSCSI Initiator Name.
+  iSCSI initiator name.
   */
   IscsiInitiatorName *string `json:"iscsiInitiatorName,omitempty"`
   
@@ -1586,7 +1641,7 @@ func (p *RevertVolumeGroupApiResponse) SetData(v interface{}) error {
 
 
 /**
-Whether the Volume Group can be shared across multiple iSCSI initiators. The mode cannot be changed from SHARED to NOT_SHARED on a volume group with multiple attachments. Similarly, a volume group cannot be associated with more than one attachment as long as it is in exclusive mode.
+Indicates whether the Volume Group can be shared across multiple iSCSI initiators. The mode cannot be changed from SHARED to NOT_SHARED on a Volume Group with multiple attachments. Similarly, a Volume Group cannot be associated with more than one attachment as long as it is in exclusive mode.
 */
 type SharingStatus int
 
@@ -1677,7 +1732,7 @@ func NewStorageFeatures() *StorageFeatures {
 
 
 /**
-List of iSCSI targets' parameters that will be visible and accessible to the iSCSI client.
+List of iSCSI target parameters that will be visible and accessible to the iSCSI client.
 */
 type TargetParam struct {
   
@@ -1687,7 +1742,7 @@ type TargetParam struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /**
-  Number of virtual targets to generate for the iSCSI target.
+  Number of virtual targets generated for the iSCSI target.
   */
   NumVirtualTargets *int `json:"numVirtualTargets,omitempty"`
 }
@@ -1708,7 +1763,7 @@ func NewTargetParam() *TargetParam {
 
 
 /**
-Object encapsulating Task ID return value.
+An object encapsulating Task Id return value.
 */
 type Task struct {
   
@@ -1904,7 +1959,62 @@ func (p *UpdateVolumeGroupApiResponse) SetData(v interface{}) error {
 
 
 /**
-Expected usage type for the volume group.
+REST Response for all response codes in api path /storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/update-metadata-info Post operation
+*/
+type UpdateVolumeGroupMetadataInfoApiResponse struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  
+  */
+  DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+  
+  Data *OneOfUpdateVolumeGroupMetadataInfoApiResponseData `json:"data,omitempty"`
+  
+  Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewUpdateVolumeGroupMetadataInfoApiResponse() *UpdateVolumeGroupMetadataInfoApiResponse {
+  p := new(UpdateVolumeGroupMetadataInfoApiResponse)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "storage.v4.config.UpdateVolumeGroupMetadataInfoApiResponse"
+  p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.UpdateVolumeGroupMetadataInfoApiResponse"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+func (p *UpdateVolumeGroupMetadataInfoApiResponse) GetData() interface{} {
+  if nil == p.Data {
+    return nil
+  }
+  return p.Data.GetValue()
+}
+
+func (p *UpdateVolumeGroupMetadataInfoApiResponse) SetData(v interface{}) error {
+  if nil == p.Data {
+    p.Data = NewOneOfUpdateVolumeGroupMetadataInfoApiResponseData()
+  }
+  e := p.Data.SetValue(v)
+  if nil == e {
+    if nil == p.DataItemDiscriminator_ {
+      p.DataItemDiscriminator_ = new(string)
+    }
+    *p.DataItemDiscriminator_ = *p.Data.Discriminator
+  }
+  return e
+}
+
+
+
+/**
+Expected usage type for the Volume Group.
 */
 type UsageType int
 
@@ -1972,7 +2082,7 @@ func (e UsageType) Ref() *UsageType {
 
 
 /**
-A model that represents a VM reference that can be associated with a volume group as a hypervisor attachment.
+A model that represents a VM reference that can be associated with a Volume Group as a hypervisor attachment.
 */
 type VmAttachment struct {
   
@@ -1986,7 +2096,7 @@ type VmAttachment struct {
   */
   ExtId *string `json:"extId"`
   /**
-  The index on the scsi bus to attach the VM to the Volume Group.
+  The index on the SCSI bus to attach the VM to the Volume Group.
   */
   Index *int `json:"index,omitempty"`
 }
@@ -2007,7 +2117,7 @@ func NewVmAttachment() *VmAttachment {
 
 
 /**
-A model that represents volume disk which is associated with a volume group, and is supported by a backing file on DSF.
+A model that represents Volume Disk which is associated with a Volume Group, and is supported by a backing file on DSF.
 */
 type VolumeDisk struct {
   
@@ -2017,7 +2127,7 @@ type VolumeDisk struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /**
-  Description of the Volume disk.
+  Description of the Volume Disk.
   */
   Description *string `json:"description,omitempty"`
   
@@ -2076,7 +2186,7 @@ type VolumeGroup struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /**
-  The UUID of cluster that will host the Volume Group. This is mandatory to be specified for creating a volume group on PC.
+  The UUID of the cluster that will host the Volume Group. This is mandatory to be specified for creating a Volume Group on Prism Central.
   */
   ClusterReference *string `json:"clusterReference,omitempty"`
   /**
@@ -2084,7 +2194,7 @@ type VolumeGroup struct {
   */
   CreatedBy *string `json:"createdBy,omitempty"`
   /**
-  The description of the Volume Group.
+  Volume Group description.
   */
   Description *string `json:"description,omitempty"`
   
@@ -2094,15 +2204,15 @@ type VolumeGroup struct {
   */
   ExtId *string `json:"extId,omitempty"`
   /**
-  Whether the VG is meant to be hidden or not.
+  Indicates whether the VG is meant to be hidden or not.
   */
   IsHidden *bool `json:"isHidden,omitempty"`
   /**
-  iSCSI target full name. The spec should not comprise both iscsi target prefix and iscsi target name.
+  iSCSI target full name. The spec should not comprise both iSCSI target prefix and iSCSI target name.
   */
   IscsiTargetName *string `json:"iscsiTargetName,omitempty"`
   /**
-  iSCSI target prefix-name. The spec should not comprise both iscsi target prefix and iscsi target name.
+  iSCSI target prefix-name. The spec should not comprise both iSCSI target prefix and iSCSI target name.
   */
   IscsiTargetPrefix *string `json:"iscsiTargetPrefix,omitempty"`
   /**
@@ -2110,11 +2220,11 @@ type VolumeGroup struct {
   */
   Links []import2.ApiLink `json:"links,omitempty"`
   /**
-  Whether to enable volume group load balancing for VM attachments. This cannot be enabled if there are iSCSI client attachments already associated with the Volume Group, and vice-versa.
+  Indicates whether to enable Volume Group load balancing for VM attachments. This cannot be enabled if there are iSCSI client attachments already associated with the Volume Group, and vice-versa.
   */
   LoadBalanceVmAttachments *bool `json:"loadBalanceVmAttachments,omitempty"`
   /**
-  The name of the Volume Group.
+  Volume Group name.
   */
   Name *string `json:"name,omitempty"`
   
@@ -2159,11 +2269,11 @@ type VolumeGroupMigrationSpec struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /**
-  Reference to the target Availability Zone where the Volume Group must be migrated.
+  Reference to the target availability zone where the Volume Group must be migrated.
   */
   TargetAvailabilityZoneId *string `json:"targetAvailabilityZoneId"`
   /**
-  Reference to the cluster in the target Availability Zone where the Volume Group must be migrated.
+  Reference to the cluster in the target availability zone where the Volume Group must be migrated.
   */
   TargetClusterId *string `json:"targetClusterId,omitempty"`
 }
@@ -2192,7 +2302,7 @@ type VolumeGroupProjection struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /**
-  The UUID of cluster that will host the Volume Group. This is mandatory to be specified for creating a volume group on PC.
+  The UUID of the cluster that will host the Volume Group. This is mandatory to be specified for creating a Volume Group on Prism Central.
   */
   ClusterReference *string `json:"clusterReference,omitempty"`
   /**
@@ -2200,7 +2310,7 @@ type VolumeGroupProjection struct {
   */
   CreatedBy *string `json:"createdBy,omitempty"`
   /**
-  The description of the Volume Group.
+  Volume Group description.
   */
   Description *string `json:"description,omitempty"`
   
@@ -2210,15 +2320,15 @@ type VolumeGroupProjection struct {
   */
   ExtId *string `json:"extId,omitempty"`
   /**
-  Whether the VG is meant to be hidden or not.
+  Indicates whether the VG is meant to be hidden or not.
   */
   IsHidden *bool `json:"isHidden,omitempty"`
   /**
-  iSCSI target full name. The spec should not comprise both iscsi target prefix and iscsi target name.
+  iSCSI target full name. The spec should not comprise both iSCSI target prefix and iSCSI target name.
   */
   IscsiTargetName *string `json:"iscsiTargetName,omitempty"`
   /**
-  iSCSI target prefix-name. The spec should not comprise both iscsi target prefix and iscsi target name.
+  iSCSI target prefix-name. The spec should not comprise both iSCSI target prefix and iSCSI target name.
   */
   IscsiTargetPrefix *string `json:"iscsiTargetPrefix,omitempty"`
   /**
@@ -2226,11 +2336,11 @@ type VolumeGroupProjection struct {
   */
   Links []import2.ApiLink `json:"links,omitempty"`
   /**
-  Whether to enable volume group load balancing for VM attachments. This cannot be enabled if there are iSCSI client attachments already associated with the Volume Group, and vice-versa.
+  Indicates whether to enable Volume Group load balancing for VM attachments. This cannot be enabled if there are iSCSI client attachments already associated with the Volume Group, and vice-versa.
   */
   LoadBalanceVmAttachments *bool `json:"loadBalanceVmAttachments,omitempty"`
   /**
-  The name of the Volume Group.
+  Volume Group name.
   */
   Name *string `json:"name,omitempty"`
   
@@ -2265,7 +2375,7 @@ func NewVolumeGroupProjection() *VolumeGroupProjection {
 
 
 /**
-Specify the Volume Group Recovery Point ID to which the Volume Group would be reverted.
+Specify the Volume Group recovery point Id to which the Volume Group would be reverted.
 */
 type VolumeGroupRevertSpec struct {
   
@@ -2275,7 +2385,7 @@ type VolumeGroupRevertSpec struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /**
-  The external identifier of the Volume Group Recovery point.
+  The external identifier of the Volume Group recovery point.
   */
   VolumeGroupRecoveryPointExtId *string `json:"volumeGroupRecoveryPointExtId"`
 }
@@ -2293,6 +2403,95 @@ func NewVolumeGroupRevertSpec() *VolumeGroupRevertSpec {
 }
 
 
+
+type OneOfUpdateVolumeGroupMetadataInfoApiResponseData struct {
+  Discriminator *string `json:"-"`
+  ObjectType_ *string `json:"-"`
+  oneOfType1 *interface{} `json:"-"`
+  oneOfType400 *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateVolumeGroupMetadataInfoApiResponseData() *OneOfUpdateVolumeGroupMetadataInfoApiResponseData {
+  p := new(OneOfUpdateVolumeGroupMetadataInfoApiResponseData)
+  p.Discriminator = new(string)
+  p.ObjectType_ = new(string)
+  return p
+}
+
+func (p *OneOfUpdateVolumeGroupMetadataInfoApiResponseData) SetValue (v interface {}) error {
+  if nil == p {
+    return errors.New(fmt.Sprintf("OneOfUpdateVolumeGroupMetadataInfoApiResponseData is nil"))
+  }
+  if nil == v {
+    if nil == p.oneOfType1 {p.oneOfType1 = new(interface {})}
+    *p.oneOfType1 = nil
+    if nil == p.Discriminator {p.Discriminator = new(string)}
+    *p.Discriminator = "EMPTY"
+    if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+    *p.ObjectType_ = "EMPTY"
+    return nil
+  }
+  switch v.(type) {
+    case import1.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
+      *p.oneOfType400 = v.(import1.ErrorResponse)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+    default:
+      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
+  }
+  return nil
+}
+
+func (p *OneOfUpdateVolumeGroupMetadataInfoApiResponseData) GetValue() interface{} {
+  if "EMPTY" == *p.Discriminator {
+    return *p.oneOfType1
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
+  return nil
+}
+
+func (p *OneOfUpdateVolumeGroupMetadataInfoApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType1 := new(interface {})
+  if err := json.Unmarshal(b, vOneOfType1); err == nil {
+    if nil == *vOneOfType1 {
+      if nil == p.oneOfType1 {p.oneOfType1 = new(interface {})}
+      *p.oneOfType1 = nil
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "EMPTY"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "EMPTY"
+      return nil
+    }
+  }
+  vOneOfType400 := new(import1.ErrorResponse)
+  if err := json.Unmarshal(b, vOneOfType400); err == nil {
+    if "storage.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
+      *p.oneOfType400 = *vOneOfType400
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+      return nil
+    }
+    }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateVolumeGroupMetadataInfoApiResponseData"))
+}
+
+func (p *OneOfUpdateVolumeGroupMetadataInfoApiResponseData) MarshalJSON() ([]byte, error) {
+  if "EMPTY" == *p.Discriminator {
+    return json.Marshal(p.oneOfType1)
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType400)
+  }
+  return nil, errors.New("No value to marshal for OneOfUpdateVolumeGroupMetadataInfoApiResponseData")
+}
 
 type OneOfGetVolumeDisksApiResponseData struct {
   Discriminator *string `json:"-"`
@@ -4143,6 +4342,93 @@ func (p *OneOfDeleteVolumeDiskApiResponseData) MarshalJSON() ([]byte, error) {
     return json.Marshal(p.oneOfType400)
   }
   return nil, errors.New("No value to marshal for OneOfDeleteVolumeDiskApiResponseData")
+}
+
+type OneOfGetVolumeGroupMetadataInfoApiResponseData struct {
+  Discriminator *string `json:"-"`
+  ObjectType_ *string `json:"-"`
+  oneOfType0 *import4.Metadata `json:"-"`
+  oneOfType400 *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetVolumeGroupMetadataInfoApiResponseData() *OneOfGetVolumeGroupMetadataInfoApiResponseData {
+  p := new(OneOfGetVolumeGroupMetadataInfoApiResponseData)
+  p.Discriminator = new(string)
+  p.ObjectType_ = new(string)
+  return p
+}
+
+func (p *OneOfGetVolumeGroupMetadataInfoApiResponseData) SetValue (v interface {}) error {
+  if nil == p {
+    return errors.New(fmt.Sprintf("OneOfGetVolumeGroupMetadataInfoApiResponseData is nil"))
+  }
+  switch v.(type) {
+    case import4.Metadata:
+      if nil == p.oneOfType0 {p.oneOfType0 = new(import4.Metadata)}
+      *p.oneOfType0 = v.(import4.Metadata)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType0.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
+    case import1.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
+      *p.oneOfType400 = v.(import1.ErrorResponse)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+    default:
+      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
+  }
+  return nil
+}
+
+func (p *OneOfGetVolumeGroupMetadataInfoApiResponseData) GetValue() interface{} {
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType0
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
+  return nil
+}
+
+func (p *OneOfGetVolumeGroupMetadataInfoApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType0 := new(import4.Metadata)
+  if err := json.Unmarshal(b, vOneOfType0); err == nil {
+    if "common.v1.config.Metadata" == *vOneOfType0.ObjectType_ {
+          if nil == p.oneOfType0 {p.oneOfType0 = new(import4.Metadata)}
+      *p.oneOfType0 = *vOneOfType0
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType0.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
+      return nil
+    }
+    }
+  vOneOfType400 := new(import1.ErrorResponse)
+  if err := json.Unmarshal(b, vOneOfType400); err == nil {
+    if "storage.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
+      *p.oneOfType400 = *vOneOfType400
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+      return nil
+    }
+    }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVolumeGroupMetadataInfoApiResponseData"))
+}
+
+func (p *OneOfGetVolumeGroupMetadataInfoApiResponseData) MarshalJSON() ([]byte, error) {
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType0)
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType400)
+  }
+  return nil, errors.New("No value to marshal for OneOfGetVolumeGroupMetadataInfoApiResponseData")
 }
 
 type OneOfGetIscsiClientApiResponseData struct {

@@ -10,7 +10,7 @@
  */
 
 /*
-  Module common.v1.config of Storage APIs
+  Nutanix Standard Configuration
 */
 package config
 import (
@@ -500,6 +500,53 @@ func (e *MessageSeverity) MarshalJSON() ([]byte, error) {
 func (e MessageSeverity) Ref() *MessageSeverity {
   return &e
 }
+
+
+/**
+Metadata associated with this resource.
+*/
+type Metadata struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  A list of globally unique identifiers that represent all the categories the resource is associated with.
+  */
+  CategoryIds []string `json:"categoryIds,omitempty"`
+  /**
+  A globally unique identifier that represents the owner of this resource.
+  */
+  OwnerReferenceId *string `json:"ownerReferenceId,omitempty"`
+  /**
+  The userName of the owner of this resource.
+  */
+  OwnerUserName *string `json:"ownerUserName,omitempty"`
+  /**
+  The name of the project this resource belongs to.
+  */
+  ProjectName *string `json:"projectName,omitempty"`
+  /**
+  A globally unique identifier that represents the project this resource belongs to.
+  */
+  ProjectReferenceId *string `json:"projectReferenceId,omitempty"`
+}
+
+func NewMetadata() *Metadata {
+  p := new(Metadata)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "common.v1.config.Metadata"
+  p.Reserved_ = map[string]interface{}{"$fqObjectType": "common.v1.r0.a3.config.Metadata"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
 
 
 /**

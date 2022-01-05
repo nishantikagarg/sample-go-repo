@@ -1,4 +1,4 @@
-//The api client for Storage APIs's golang SDK
+//The api client for storage's golang SDK
 package client
 
 import (
