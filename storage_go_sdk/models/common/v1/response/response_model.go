@@ -14,7 +14,7 @@
 */
 package response
 import (
-  import1 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/common/v1/config"
+  import1 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/models/common/v1/config"
 )
 
 /**

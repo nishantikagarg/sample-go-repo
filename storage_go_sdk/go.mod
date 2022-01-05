@@ -1,4 +1,4 @@
-module github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16
+module github.com/nishantikagarg/sample-go-repo/storage_go_sdk
 
 go 1.17
 

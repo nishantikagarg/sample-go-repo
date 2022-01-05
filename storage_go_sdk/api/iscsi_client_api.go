@@ -2,8 +2,8 @@
 package api
 
 import (
-    "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/client"
-	import1 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/storage/v4/config"
+    "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/client"
+	import1 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/models/storage/v4/config"
 	"encoding/json"
 	"net/http"
     "net/url"

@@ -15,13 +15,13 @@
 package config
 import (
   "bytes"
-  import4 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/common/v1/config"
-  import2 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/common/v1/response"
+  import4 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/models/common/v1/config"
+  import2 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/models/common/v1/response"
   "encoding/json"
   "errors"
   "fmt"
-  import3 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/prism/v4/config"
-  import1 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/storage/v4/error"
+  import3 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/models/prism/v4/config"
+  import1 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/models/storage/v4/error"
 )
 
 /**
