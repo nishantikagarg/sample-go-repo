@@ -3,12 +3,12 @@ package api
 
 import (
     "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/v1/client"
+	"strings"
 	"reflect"
 	import1 "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/v1/models/petstore/v1/defaultapi"
 	"encoding/json"
 	"net/http"
     "net/url"
-    "strings"
 )
 
 type PetApi struct {
