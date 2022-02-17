@@ -2,10 +2,10 @@
 package api
 
 import (
-    "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/v1/client"
+    "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/client"
 	"strings"
+	import2 "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/models/petstore/v1/utils"
 	"reflect"
-	import2 "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/v1/models/petstore/v1/utils"
 	"encoding/json"
 	"net/http"
     "net/url"

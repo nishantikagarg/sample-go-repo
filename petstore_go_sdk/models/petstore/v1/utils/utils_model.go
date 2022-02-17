@@ -15,12 +15,12 @@
 package utils
 import (
   "bytes"
-  import1 "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/v1/models/common/v1/config"
-  import3 "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/v1/models/common/v1/response"
+  import1 "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/models/common/v1/config"
+  import3 "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/models/common/v1/response"
   "encoding/json"
   "errors"
   "fmt"
-  import2 "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/v1/models/petstore/v1/error"
+  import2 "github.com/nishantikagarg/sample-go-repo/petstore_go_sdk/models/petstore/v1/error"
 )
 
 
