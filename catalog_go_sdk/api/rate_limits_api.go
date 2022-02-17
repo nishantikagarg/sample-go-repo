@@ -1,13 +1,13 @@
-//Api classes for Catalog REST API's golang SDK
+//Api classes for catalog's golang SDK
 package api
 
 import (
     "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/client"
+	"strings"
 	import1 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/vmm/v4/images"
 	"encoding/json"
 	"net/http"
     "net/url"
-    "strings"
 )
 
 type RateLimitsApi struct {

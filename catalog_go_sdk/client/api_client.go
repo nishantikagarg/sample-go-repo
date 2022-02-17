@@ -1,4 +1,4 @@
-//The api client for Catalog REST API's golang SDK
+//The api client for catalog's golang SDK
 package client
 
 import (

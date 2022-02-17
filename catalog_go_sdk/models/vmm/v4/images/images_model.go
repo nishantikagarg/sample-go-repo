@@ -19,7 +19,7 @@ import (
   "encoding/json"
   "errors"
   "fmt"
-  import3 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/vmm/v4/config"
+  import3 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/prism/v4/config"
   import2 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/vmm/v4/error"
 )
 
@@ -1654,10 +1654,8 @@ type RateLimitTask struct {
   Image rate limit extId.
   */
   RateLimitId *string `json:"rateLimitId,omitempty"`
-  /**
-  Task extId for image rate limits operations.
-  */
-  TaskId *string `json:"taskId,omitempty"`
+  
+  TaskReference *import3.TaskReference `json:"taskReference,omitempty"`
 }
 
 func NewRateLimitTask() *RateLimitTask {
@@ -2195,6 +2193,93 @@ func (p *OneOfPlacementPolicyApiResponseData) MarshalJSON() ([]byte, error) {
   return nil, errors.New("No value to marshal for OneOfPlacementPolicyApiResponseData")
 }
 
+type OneOfImagesTaskApiResponseData struct {
+  Discriminator *string `json:"-"`
+  ObjectType_ *string `json:"-"`
+  oneOfType400 *import2.ErrorResponse `json:"-"`
+  oneOfType0 *import3.TaskReference `json:"-"`
+}
+
+func NewOneOfImagesTaskApiResponseData() *OneOfImagesTaskApiResponseData {
+  p := new(OneOfImagesTaskApiResponseData)
+  p.Discriminator = new(string)
+  p.ObjectType_ = new(string)
+  return p
+}
+
+func (p *OneOfImagesTaskApiResponseData) SetValue (v interface {}) error {
+  if nil == p {
+    return errors.New(fmt.Sprintf("OneOfImagesTaskApiResponseData is nil"))
+  }
+  switch v.(type) {
+    case import2.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
+      *p.oneOfType400 = v.(import2.ErrorResponse)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+    case import3.TaskReference:
+      if nil == p.oneOfType0 {p.oneOfType0 = new(import3.TaskReference)}
+      *p.oneOfType0 = v.(import3.TaskReference)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType0.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
+    default:
+      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
+  }
+  return nil
+}
+
+func (p *OneOfImagesTaskApiResponseData) GetValue() interface{} {
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType0
+  }
+  return nil
+}
+
+func (p *OneOfImagesTaskApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType400 := new(import2.ErrorResponse)
+  if err := json.Unmarshal(b, vOneOfType400); err == nil {
+    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
+      *p.oneOfType400 = *vOneOfType400
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+      return nil
+    }
+    }
+  vOneOfType0 := new(import3.TaskReference)
+  if err := json.Unmarshal(b, vOneOfType0); err == nil {
+    if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+          if nil == p.oneOfType0 {p.oneOfType0 = new(import3.TaskReference)}
+      *p.oneOfType0 = *vOneOfType0
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType0.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
+      return nil
+    }
+    }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfImagesTaskApiResponseData"))
+}
+
+func (p *OneOfImagesTaskApiResponseData) MarshalJSON() ([]byte, error) {
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType400)
+  }
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType0)
+  }
+  return nil, errors.New("No value to marshal for OneOfImagesTaskApiResponseData")
+}
+
 type OneOfPlacementPolicyListApiResponseData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
@@ -2537,93 +2622,6 @@ func (p *OneOfImageClusterLocationListApiResponseData) MarshalJSON() ([]byte, er
     return json.Marshal(p.oneOfType0)
   }
   return nil, errors.New("No value to marshal for OneOfImageClusterLocationListApiResponseData")
-}
-
-type OneOfImagesTaskApiResponseData struct {
-  Discriminator *string `json:"-"`
-  ObjectType_ *string `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
-  oneOfType0 *import3.Task `json:"-"`
-}
-
-func NewOneOfImagesTaskApiResponseData() *OneOfImagesTaskApiResponseData {
-  p := new(OneOfImagesTaskApiResponseData)
-  p.Discriminator = new(string)
-  p.ObjectType_ = new(string)
-  return p
-}
-
-func (p *OneOfImagesTaskApiResponseData) SetValue (v interface {}) error {
-  if nil == p {
-    return errors.New(fmt.Sprintf("OneOfImagesTaskApiResponseData is nil"))
-  }
-  switch v.(type) {
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-    case import3.Task:
-      if nil == p.oneOfType0 {p.oneOfType0 = new(import3.Task)}
-      *p.oneOfType0 = v.(import3.Task)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType0.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType0.ObjectType_
-    default:
-      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
-  }
-  return nil
-}
-
-func (p *OneOfImagesTaskApiResponseData) GetValue() interface{} {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType400
-  }
-  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType0
-  }
-  return nil
-}
-
-func (p *OneOfImagesTaskApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType400 := new(import2.ErrorResponse)
-  if err := json.Unmarshal(b, vOneOfType400); err == nil {
-    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = *vOneOfType400
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-      return nil
-    }
-    }
-  vOneOfType0 := new(import3.Task)
-  if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if "vmm.v4.config.Task" == *vOneOfType0.ObjectType_ {
-          if nil == p.oneOfType0 {p.oneOfType0 = new(import3.Task)}
-      *p.oneOfType0 = *vOneOfType0
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType0.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType0.ObjectType_
-      return nil
-    }
-    }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfImagesTaskApiResponseData"))
-}
-
-func (p *OneOfImagesTaskApiResponseData) MarshalJSON() ([]byte, error) {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType400)
-  }
-  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType0)
-  }
-  return nil, errors.New("No value to marshal for OneOfImagesTaskApiResponseData")
 }
 
 type OneOfRateLimitTaskListApiResponseData struct {
