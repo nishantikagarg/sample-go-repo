@@ -14,7 +14,7 @@
 */
 package response
 import (
-  import1 "catalog_go_sdk/models/common/v1/config"
+  import1 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/common/v1/config"
 )
 
 /**

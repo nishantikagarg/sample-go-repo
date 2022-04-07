@@ -1,4 +1,4 @@
-module catalog_go_sdk
+module github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16
 
 go 1.17
 

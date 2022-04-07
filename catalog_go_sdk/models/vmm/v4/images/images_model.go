@@ -15,12 +15,12 @@
 package images
 import (
   "bytes"
-  import1 "catalog_go_sdk/models/common/v1/response"
+  import1 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/common/v1/response"
   "encoding/json"
   "errors"
   "fmt"
-  import3 "catalog_go_sdk/models/prism/v4/config"
-  import2 "catalog_go_sdk/models/vmm/v4/error"
+  import3 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/prism/v4/config"
+  import2 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/vmm/v4/error"
 )
 
 /**

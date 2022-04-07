@@ -2,9 +2,9 @@
 package api
 
 import (
-    "catalog_go_sdk/client"
+    "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/client"
 	"strings"
-	import1 "catalog_go_sdk/models/vmm/v4/images"
+	import1 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/vmm/v4/images"
 	"encoding/json"
 	"net/http"
     "net/url"
@@ -28,10 +28,16 @@ func NewImagesApi() *ImagesApi {
 
     parameters:-
     -> body (vmm.v4.images.Image) (required) : Create image request.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (vmm.v4.images.ImagesTaskApiResponse, error)
 */
-func (api *ImagesApi) CreateImage(body *import1.Image) (*import1.ImagesTaskApiResponse, error) {
+func (api *ImagesApi) CreateImage(body *import1.Image, args ...map[string]interface{}) (*import1.ImagesTaskApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/vmm/v4.0.a1/images"
 
     // verify the required parameter 'body' is set
@@ -49,6 +55,13 @@ func (api *ImagesApi) CreateImage(body *import1.Image) (*import1.ImagesTaskApiRe
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -66,10 +79,16 @@ func (api *ImagesApi) CreateImage(body *import1.Image) (*import1.ImagesTaskApiRe
 
     parameters:-
     -> extId (string) (required)
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (vmm.v4.images.ImagesTaskApiResponse, error)
 */
-func (api *ImagesApi) DeleteImageByExtId(extId string) (*import1.ImagesTaskApiResponse, error) {
+func (api *ImagesApi) DeleteImageByExtId(extId string, args ...map[string]interface{}) (*import1.ImagesTaskApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/vmm/v4.0.a1/images/{extId}"
 
 
@@ -85,6 +104,13 @@ func (api *ImagesApi) DeleteImageByExtId(extId string) (*import1.ImagesTaskApiRe
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -102,10 +128,16 @@ func (api *ImagesApi) DeleteImageByExtId(extId string) (*import1.ImagesTaskApiRe
 
     parameters:-
     -> extId (string) (required)
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (vmm.v4.images.ImageApiResponse, error)
 */
-func (api *ImagesApi) GetImageByExtId(extId string) (*import1.ImageApiResponse, error) {
+func (api *ImagesApi) GetImageByExtId(extId string, args ...map[string]interface{}) (*import1.ImageApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/vmm/v4.0.a1/images/{extId}"
 
 
@@ -121,6 +153,13 @@ func (api *ImagesApi) GetImageByExtId(extId string) (*import1.ImageApiResponse, 
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -138,10 +177,16 @@ func (api *ImagesApi) GetImageByExtId(extId string) (*import1.ImageApiResponse, 
 
     parameters:-
     -> extId (string) (required)
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (vmm.v4.images.ImageCategoriesApiResponse, error)
 */
-func (api *ImagesApi) GetImageCategories(extId string) (*import1.ImageCategoriesApiResponse, error) {
+func (api *ImagesApi) GetImageCategories(extId string, args ...map[string]interface{}) (*import1.ImageCategoriesApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/vmm/v4.0.a1/images/{extId}/categories"
 
 
@@ -157,6 +202,13 @@ func (api *ImagesApi) GetImageCategories(extId string) (*import1.ImageCategories
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -174,10 +226,16 @@ func (api *ImagesApi) GetImageCategories(extId string) (*import1.ImageCategories
 
     parameters:-
     -> extId (string) (required)
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (vmm.v4.images.ImageClusterLocationListApiResponse, error)
 */
-func (api *ImagesApi) GetImageClusterLocations(extId string) (*import1.ImageClusterLocationListApiResponse, error) {
+func (api *ImagesApi) GetImageClusterLocations(extId string, args ...map[string]interface{}) (*import1.ImageClusterLocationListApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/vmm/v4.0.a1/images/{extId}/cluster-locations"
 
 
@@ -193,6 +251,13 @@ func (api *ImagesApi) GetImageClusterLocations(extId string) (*import1.ImageClus
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -210,10 +275,16 @@ func (api *ImagesApi) GetImageClusterLocations(extId string) (*import1.ImageClus
 
     parameters:-
     -> extId (string) (required)
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (vmm.v4.images.ImagePlacementPolicyListApiResponse, error)
 */
-func (api *ImagesApi) GetImagePlacementPolicies(extId string) (*import1.ImagePlacementPolicyListApiResponse, error) {
+func (api *ImagesApi) GetImagePlacementPolicies(extId string, args ...map[string]interface{}) (*import1.ImagePlacementPolicyListApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/vmm/v4.0.a1/images/{extId}/placement-policies"
 
 
@@ -229,6 +300,13 @@ func (api *ImagesApi) GetImagePlacementPolicies(extId string) (*import1.ImagePla
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -247,12 +325,18 @@ func (api *ImagesApi) GetImagePlacementPolicies(extId string) (*import1.ImagePla
     parameters:-
     -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource.  Any number out of this range will be set to its nearest bound.  In other words, a page number of less than 0 would be set to 0 and a page number greater than the total available pages would be set to the last page. 
     -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will be set to the default maximum number of records, which is 100. 
-    -> filter_ (string) (optional) : A URL query parameter that allows clients to filter a collection of resources. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Expression specified with the $filter must conform to the OData V4.01 URL conventions. The filter can be applied on following fields: - description - name - sizeBytes 
-    -> orderby_ (string) (optional) : A URL query parameter that allows clients to specify the sort criteria for the returned list of objects. Resources can be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified the resources will be sorted in ascending order by default. For example 'orderby=templateName desc' would get all templates sorted by templateName in desc order. The orderby can be applied on following fields: - description - name - sizeBytes 
+    -> filter_ (string) (optional) : A URL query parameter that allows clients to filter a collection of resources. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Expression specified with the $filter must conform to the OData V4.01 URL conventions. The filter can be applied on the following fields: - description - name - sizeBytes 
+    -> orderby_ (string) (optional) : A URL query parameter that allows clients to specify the sort criteria for the returned list of objects. Resources can be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified the resources will be sorted in ascending order by default. For example 'orderby=templateName desc' would get all templates sorted by templateName in desc order. The orderby can be applied on the following fields: - description - name - sizeBytes 
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (vmm.v4.images.ImageListApiResponse, error)
 */
-func (api *ImagesApi) GetImagesList(page_ *int, limit_ *int, filter_ *string, orderby_ *string) (*import1.ImageListApiResponse, error) {
+func (api *ImagesApi) GetImagesList(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ImageListApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/vmm/v4.0.a1/images"
 
 
@@ -280,6 +364,13 @@ func (api *ImagesApi) GetImagesList(page_ *int, limit_ *int, filter_ *string, or
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -297,10 +388,16 @@ func (api *ImagesApi) GetImagesList(page_ *int, limit_ *int, filter_ *string, or
 
     parameters:-
     -> body (vmm.v4.images.ClusterImages) (required) : Reference to the Prism Element cluster and its images to import.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (vmm.v4.images.ImagesTaskApiResponse, error)
 */
-func (api *ImagesApi) ImportImage(body *import1.ClusterImages) (*import1.ImagesTaskApiResponse, error) {
+func (api *ImagesApi) ImportImage(body *import1.ClusterImages, args ...map[string]interface{}) (*import1.ImagesTaskApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/vmm/v4.0.a1/images/$actions/import"
 
     // verify the required parameter 'body' is set
@@ -318,6 +415,13 @@ func (api *ImagesApi) ImportImage(body *import1.ClusterImages) (*import1.ImagesT
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -335,10 +439,16 @@ func (api *ImagesApi) ImportImage(body *import1.ClusterImages) (*import1.ImagesT
 
     parameters:-
     -> body ([]vmm.v4.images.ImageReference) (required) : Ids of the images to copy to the paired Prism Central.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (vmm.v4.images.ImagesTaskApiResponse, error)
 */
-func (api *ImagesApi) RemoteCopyImage(body *[]import1.ImageReference) (*import1.ImagesTaskApiResponse, error) {
+func (api *ImagesApi) RemoteCopyImage(body *[]import1.ImageReference, args ...map[string]interface{}) (*import1.ImagesTaskApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/vmm/v4.0.a1/images/$actions/remote-copy"
 
     // verify the required parameter 'body' is set
@@ -356,6 +466,13 @@ func (api *ImagesApi) RemoteCopyImage(body *[]import1.ImageReference) (*import1.
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -374,10 +491,16 @@ func (api *ImagesApi) RemoteCopyImage(body *[]import1.ImageReference) (*import1.
     parameters:-
     -> body (vmm.v4.images.Image) (required) : Updated image with the given extId.
     -> extId (string) (required)
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (vmm.v4.images.ImagesTaskApiResponse, error)
 */
-func (api *ImagesApi) UpdateImageByExtId(body *import1.Image, extId string) (*import1.ImagesTaskApiResponse, error) {
+func (api *ImagesApi) UpdateImageByExtId(body *import1.Image, extId string, args ...map[string]interface{}) (*import1.ImagesTaskApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/vmm/v4.0.a1/images/{extId}"
 
     // verify the required parameter 'body' is set
@@ -397,6 +520,13 @@ func (api *ImagesApi) UpdateImageByExtId(body *import1.Image, extId string) (*im
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -415,10 +545,16 @@ func (api *ImagesApi) UpdateImageByExtId(body *import1.Image, extId string) (*im
     parameters:-
     -> body ([]vmm.v4.images.CategoryReference) (required) : The desired categories for the image.
     -> extId (string) (required)
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (vmm.v4.images.ImagesTaskApiResponse, error)
 */
-func (api *ImagesApi) UpdateImageCategories(body *[]import1.CategoryReference, extId string) (*import1.ImagesTaskApiResponse, error) {
+func (api *ImagesApi) UpdateImageCategories(body *[]import1.CategoryReference, extId string, args ...map[string]interface{}) (*import1.ImagesTaskApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/vmm/v4.0.a1/images/{extId}/categories"
 
     // verify the required parameter 'body' is set
@@ -438,6 +574,13 @@ func (api *ImagesApi) UpdateImageCategories(body *[]import1.CategoryReference, e
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
