@@ -15,8 +15,8 @@
 package config
 import (
   "bytes"
-  import1 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/common/v1/config"
-  import2 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/common/v1/response"
+  import1 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/common/v1/config"
+  import2 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/common/v1/response"
   "encoding/json"
   "errors"
   "fmt"

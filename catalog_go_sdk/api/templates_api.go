@@ -2,9 +2,9 @@
 package api
 
 import (
-    "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/client"
+    "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/client"
 	"strings"
-	import2 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/vmm/v4/templates"
+	import2 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/vmm/v4/templates"
 	"encoding/json"
 	"net/http"
     "net/url"
