@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/config/config_model.go.
  *
- * Product version: 16.2.0-SNAPSHOT
+ * Product version: 16.7.0-SNAPSHOT
  *
  * Part of the Catalog REST API
  *
@@ -15,8 +15,8 @@
 package config
 import (
   "bytes"
-  import1 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/common/v1/config"
-  import2 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/common/v1/response"
+  import1 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/common/v1/config"
+  import2 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/common/v1/response"
   "encoding/json"
   "errors"
   "fmt"

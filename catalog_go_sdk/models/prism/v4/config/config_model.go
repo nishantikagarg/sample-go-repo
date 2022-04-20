@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/config/config_model.go.
  *
- * Product version: 16.2.0-SNAPSHOT
+ * Product version: 16.7.0-SNAPSHOT
  *
  * Part of the Catalog REST API
  *

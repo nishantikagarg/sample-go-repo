@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/images/images_model.go.
  *
- * Product version: 16.2.0-SNAPSHOT
+ * Product version: 16.7.0-SNAPSHOT
  *
  * Part of the Catalog REST API
  *
@@ -15,12 +15,13 @@
 package images
 import (
   "bytes"
-  import1 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/common/v1/response"
+  import2 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/common/v1/config"
+  import1 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/common/v1/response"
   "encoding/json"
   "errors"
   "fmt"
-  import3 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/prism/v4/config"
-  import2 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/vmm/v4/error"
+  import4 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/prism/v4/config"
+  import3 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/vmm/v4/error"
 )
 
 /**
@@ -592,6 +593,8 @@ type Image struct {
   A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
   */
   Links []import1.ApiLink `json:"links,omitempty"`
+  
+  Metadata *import2.Metadata `json:"metadata,omitempty"`
   
   Name *string `json:"name"`
   /**
@@ -1167,6 +1170,8 @@ type PlacementPolicy struct {
   A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
   */
   Links []import1.ApiLink `json:"links,omitempty"`
+  
+  Metadata *import2.Metadata `json:"metadata,omitempty"`
   /**
   Name of the image placement policy.
   */
@@ -1466,6 +1471,8 @@ type RateLimit struct {
   A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
   */
   Links []import1.ApiLink `json:"links,omitempty"`
+  
+  Metadata *import2.Metadata `json:"metadata,omitempty"`
   /**
   Name of the image rate limit policy.
   */
@@ -1655,7 +1662,7 @@ type RateLimitTask struct {
   */
   RateLimitId *string `json:"rateLimitId,omitempty"`
   
-  TaskReference *import3.TaskReference `json:"taskReference,omitempty"`
+  TaskReference *import4.TaskReference `json:"taskReference,omitempty"`
 }
 
 func NewRateLimitTask() *RateLimitTask {
@@ -1846,320 +1853,71 @@ func NewVmDiskSource() *VmDiskSource {
 
 
 
-type OneOfRateLimitApiResponseData struct {
+type OneOfImageCategoriesApiResponseData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
-  oneOfType0 *RateLimit `json:"-"`
+  oneOfType0 []CategoryReference `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
 }
 
-func NewOneOfRateLimitApiResponseData() *OneOfRateLimitApiResponseData {
-  p := new(OneOfRateLimitApiResponseData)
+func NewOneOfImageCategoriesApiResponseData() *OneOfImageCategoriesApiResponseData {
+  p := new(OneOfImageCategoriesApiResponseData)
   p.Discriminator = new(string)
   p.ObjectType_ = new(string)
   return p
 }
 
-func (p *OneOfRateLimitApiResponseData) SetValue (v interface {}) error {
+func (p *OneOfImageCategoriesApiResponseData) SetValue (v interface {}) error {
   if nil == p {
-    return errors.New(fmt.Sprintf("OneOfRateLimitApiResponseData is nil"))
+    return errors.New(fmt.Sprintf("OneOfImageCategoriesApiResponseData is nil"))
   }
   switch v.(type) {
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
+    case []CategoryReference:
+      p.oneOfType0 = v.([]CategoryReference)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<vmm.v4.images.CategoryReference>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<vmm.v4.images.CategoryReference>"
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
       *p.ObjectType_ = *p.oneOfType400.ObjectType_
-    case RateLimit:
-      if nil == p.oneOfType0 {p.oneOfType0 = new(RateLimit)}
-      *p.oneOfType0 = v.(RateLimit)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType0.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType0.ObjectType_
     default:
       return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
   }
   return nil
 }
 
-func (p *OneOfRateLimitApiResponseData) GetValue() interface{} {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType400
-  }
-  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType0
-  }
-  return nil
-}
-
-func (p *OneOfRateLimitApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType400 := new(import2.ErrorResponse)
-  if err := json.Unmarshal(b, vOneOfType400); err == nil {
-    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = *vOneOfType400
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-      return nil
-    }
-    }
-  vOneOfType0 := new(RateLimit)
-  if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if "vmm.v4.images.RateLimit" == *vOneOfType0.ObjectType_ {
-          if nil == p.oneOfType0 {p.oneOfType0 = new(RateLimit)}
-      *p.oneOfType0 = *vOneOfType0
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType0.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType0.ObjectType_
-      return nil
-    }
-    }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRateLimitApiResponseData"))
-}
-
-func (p *OneOfRateLimitApiResponseData) MarshalJSON() ([]byte, error) {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType400)
-  }
-  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType0)
-  }
-  return nil, errors.New("No value to marshal for OneOfRateLimitApiResponseData")
-}
-
-type OneOfImageApiResponseData struct {
-  Discriminator *string `json:"-"`
-  ObjectType_ *string `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
-  oneOfType0 *Image `json:"-"`
-}
-
-func NewOneOfImageApiResponseData() *OneOfImageApiResponseData {
-  p := new(OneOfImageApiResponseData)
-  p.Discriminator = new(string)
-  p.ObjectType_ = new(string)
-  return p
-}
-
-func (p *OneOfImageApiResponseData) SetValue (v interface {}) error {
-  if nil == p {
-    return errors.New(fmt.Sprintf("OneOfImageApiResponseData is nil"))
-  }
-  switch v.(type) {
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-    case Image:
-      if nil == p.oneOfType0 {p.oneOfType0 = new(Image)}
-      *p.oneOfType0 = v.(Image)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType0.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType0.ObjectType_
-    default:
-      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
-  }
-  return nil
-}
-
-func (p *OneOfImageApiResponseData) GetValue() interface{} {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType400
-  }
-  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType0
-  }
-  return nil
-}
-
-func (p *OneOfImageApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType400 := new(import2.ErrorResponse)
-  if err := json.Unmarshal(b, vOneOfType400); err == nil {
-    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = *vOneOfType400
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-      return nil
-    }
-    }
-  vOneOfType0 := new(Image)
-  if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if "vmm.v4.images.Image" == *vOneOfType0.ObjectType_ {
-          if nil == p.oneOfType0 {p.oneOfType0 = new(Image)}
-      *p.oneOfType0 = *vOneOfType0
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType0.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType0.ObjectType_
-      return nil
-    }
-    }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfImageApiResponseData"))
-}
-
-func (p *OneOfImageApiResponseData) MarshalJSON() ([]byte, error) {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType400)
-  }
-  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType0)
-  }
-  return nil, errors.New("No value to marshal for OneOfImageApiResponseData")
-}
-
-type OneOfResolveRateLimitsApiResponseData struct {
-  Discriminator *string `json:"-"`
-  ObjectType_ *string `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
-  oneOfType0 []EffectiveRateLimit `json:"-"`
-}
-
-func NewOneOfResolveRateLimitsApiResponseData() *OneOfResolveRateLimitsApiResponseData {
-  p := new(OneOfResolveRateLimitsApiResponseData)
-  p.Discriminator = new(string)
-  p.ObjectType_ = new(string)
-  return p
-}
-
-func (p *OneOfResolveRateLimitsApiResponseData) SetValue (v interface {}) error {
-  if nil == p {
-    return errors.New(fmt.Sprintf("OneOfResolveRateLimitsApiResponseData is nil"))
-  }
-  switch v.(type) {
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-    case []EffectiveRateLimit:
-      p.oneOfType0 = v.([]EffectiveRateLimit)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<vmm.v4.images.EffectiveRateLimit>"
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<vmm.v4.images.EffectiveRateLimit>"
-    default:
-      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
-  }
-  return nil
-}
-
-func (p *OneOfResolveRateLimitsApiResponseData) GetValue() interface{} {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType400
-  }
-  if "List<vmm.v4.images.EffectiveRateLimit>" == *p.Discriminator {
+func (p *OneOfImageCategoriesApiResponseData) GetValue() interface{} {
+  if "List<vmm.v4.images.CategoryReference>" == *p.Discriminator {
     return p.oneOfType0
   }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
   return nil
 }
 
-func (p *OneOfResolveRateLimitsApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType400 := new(import2.ErrorResponse)
-  if err := json.Unmarshal(b, vOneOfType400); err == nil {
-    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = *vOneOfType400
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-      return nil
-    }
-    }
-  vOneOfType0 := new([]EffectiveRateLimit)
+func (p *OneOfImageCategoriesApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType0 := new([]CategoryReference)
   if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if len(*vOneOfType0) == 0 || "vmm.v4.images.EffectiveRateLimit" == *((*vOneOfType0)[0].ObjectType_) {
+    if len(*vOneOfType0) == 0 || "vmm.v4.images.CategoryReference" == *((*vOneOfType0)[0].ObjectType_) {
       p.oneOfType0 = *vOneOfType0
       if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<vmm.v4.images.EffectiveRateLimit>"
+      *p.Discriminator = "List<vmm.v4.images.CategoryReference>"
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<vmm.v4.images.EffectiveRateLimit>"
+      *p.ObjectType_ = "List<vmm.v4.images.CategoryReference>"
       return nil
 
     }
   }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfResolveRateLimitsApiResponseData"))
-}
-
-func (p *OneOfResolveRateLimitsApiResponseData) MarshalJSON() ([]byte, error) {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType400)
-  }
-  if "List<vmm.v4.images.EffectiveRateLimit>" == *p.Discriminator {
-    return json.Marshal(p.oneOfType0)
-  }
-  return nil, errors.New("No value to marshal for OneOfResolveRateLimitsApiResponseData")
-}
-
-type OneOfPlacementPolicyApiResponseData struct {
-  Discriminator *string `json:"-"`
-  ObjectType_ *string `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
-  oneOfType0 *PlacementPolicy `json:"-"`
-}
-
-func NewOneOfPlacementPolicyApiResponseData() *OneOfPlacementPolicyApiResponseData {
-  p := new(OneOfPlacementPolicyApiResponseData)
-  p.Discriminator = new(string)
-  p.ObjectType_ = new(string)
-  return p
-}
-
-func (p *OneOfPlacementPolicyApiResponseData) SetValue (v interface {}) error {
-  if nil == p {
-    return errors.New(fmt.Sprintf("OneOfPlacementPolicyApiResponseData is nil"))
-  }
-  switch v.(type) {
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-    case PlacementPolicy:
-      if nil == p.oneOfType0 {p.oneOfType0 = new(PlacementPolicy)}
-      *p.oneOfType0 = v.(PlacementPolicy)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType0.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType0.ObjectType_
-    default:
-      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
-  }
-  return nil
-}
-
-func (p *OneOfPlacementPolicyApiResponseData) GetValue() interface{} {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType400
-  }
-  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType0
-  }
-  return nil
-}
-
-func (p *OneOfPlacementPolicyApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType400 := new(import2.ErrorResponse)
+  vOneOfType400 := new(import3.ErrorResponse)
   if err := json.Unmarshal(b, vOneOfType400); err == nil {
     if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
       *p.oneOfType400 = *vOneOfType400
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
@@ -2168,122 +1926,23 @@ func (p *OneOfPlacementPolicyApiResponseData) UnmarshalJSON(b []byte) error {
       return nil
     }
     }
-  vOneOfType0 := new(PlacementPolicy)
-  if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if "vmm.v4.images.PlacementPolicy" == *vOneOfType0.ObjectType_ {
-          if nil == p.oneOfType0 {p.oneOfType0 = new(PlacementPolicy)}
-      *p.oneOfType0 = *vOneOfType0
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType0.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType0.ObjectType_
-      return nil
-    }
-    }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfPlacementPolicyApiResponseData"))
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfImageCategoriesApiResponseData"))
 }
 
-func (p *OneOfPlacementPolicyApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfImageCategoriesApiResponseData) MarshalJSON() ([]byte, error) {
+  if "List<vmm.v4.images.CategoryReference>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType0)
+  }
   if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
     return json.Marshal(p.oneOfType400)
   }
-  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType0)
-  }
-  return nil, errors.New("No value to marshal for OneOfPlacementPolicyApiResponseData")
-}
-
-type OneOfImagesTaskApiResponseData struct {
-  Discriminator *string `json:"-"`
-  ObjectType_ *string `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
-  oneOfType0 *import3.TaskReference `json:"-"`
-}
-
-func NewOneOfImagesTaskApiResponseData() *OneOfImagesTaskApiResponseData {
-  p := new(OneOfImagesTaskApiResponseData)
-  p.Discriminator = new(string)
-  p.ObjectType_ = new(string)
-  return p
-}
-
-func (p *OneOfImagesTaskApiResponseData) SetValue (v interface {}) error {
-  if nil == p {
-    return errors.New(fmt.Sprintf("OneOfImagesTaskApiResponseData is nil"))
-  }
-  switch v.(type) {
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-    case import3.TaskReference:
-      if nil == p.oneOfType0 {p.oneOfType0 = new(import3.TaskReference)}
-      *p.oneOfType0 = v.(import3.TaskReference)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType0.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType0.ObjectType_
-    default:
-      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
-  }
-  return nil
-}
-
-func (p *OneOfImagesTaskApiResponseData) GetValue() interface{} {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType400
-  }
-  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType0
-  }
-  return nil
-}
-
-func (p *OneOfImagesTaskApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType400 := new(import2.ErrorResponse)
-  if err := json.Unmarshal(b, vOneOfType400); err == nil {
-    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = *vOneOfType400
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-      return nil
-    }
-    }
-  vOneOfType0 := new(import3.TaskReference)
-  if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-          if nil == p.oneOfType0 {p.oneOfType0 = new(import3.TaskReference)}
-      *p.oneOfType0 = *vOneOfType0
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType0.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType0.ObjectType_
-      return nil
-    }
-    }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfImagesTaskApiResponseData"))
-}
-
-func (p *OneOfImagesTaskApiResponseData) MarshalJSON() ([]byte, error) {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType400)
-  }
-  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType0)
-  }
-  return nil, errors.New("No value to marshal for OneOfImagesTaskApiResponseData")
+  return nil, errors.New("No value to marshal for OneOfImageCategoriesApiResponseData")
 }
 
 type OneOfPlacementPolicyListApiResponseData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
   oneOfType0 []PlacementPolicy `json:"-"`
 }
 
@@ -2299,9 +1958,9 @@ func (p *OneOfPlacementPolicyListApiResponseData) SetValue (v interface {}) erro
     return errors.New(fmt.Sprintf("OneOfPlacementPolicyListApiResponseData is nil"))
   }
   switch v.(type) {
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
@@ -2329,10 +1988,10 @@ func (p *OneOfPlacementPolicyListApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfPlacementPolicyListApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType400 := new(import2.ErrorResponse)
+  vOneOfType400 := new(import3.ErrorResponse)
   if err := json.Unmarshal(b, vOneOfType400); err == nil {
     if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
       *p.oneOfType400 = *vOneOfType400
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
@@ -2366,10 +2025,183 @@ func (p *OneOfPlacementPolicyListApiResponseData) MarshalJSON() ([]byte, error) 
   return nil, errors.New("No value to marshal for OneOfPlacementPolicyListApiResponseData")
 }
 
+type OneOfRateLimitTaskListApiResponseData struct {
+  Discriminator *string `json:"-"`
+  ObjectType_ *string `json:"-"`
+  oneOfType0 []RateLimitTask `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
+}
+
+func NewOneOfRateLimitTaskListApiResponseData() *OneOfRateLimitTaskListApiResponseData {
+  p := new(OneOfRateLimitTaskListApiResponseData)
+  p.Discriminator = new(string)
+  p.ObjectType_ = new(string)
+  return p
+}
+
+func (p *OneOfRateLimitTaskListApiResponseData) SetValue (v interface {}) error {
+  if nil == p {
+    return errors.New(fmt.Sprintf("OneOfRateLimitTaskListApiResponseData is nil"))
+  }
+  switch v.(type) {
+    case []RateLimitTask:
+      p.oneOfType0 = v.([]RateLimitTask)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<vmm.v4.images.RateLimitTask>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<vmm.v4.images.RateLimitTask>"
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+    default:
+      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
+  }
+  return nil
+}
+
+func (p *OneOfRateLimitTaskListApiResponseData) GetValue() interface{} {
+  if "List<vmm.v4.images.RateLimitTask>" == *p.Discriminator {
+    return p.oneOfType0
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
+  return nil
+}
+
+func (p *OneOfRateLimitTaskListApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType0 := new([]RateLimitTask)
+  if err := json.Unmarshal(b, vOneOfType0); err == nil {
+    if len(*vOneOfType0) == 0 || "vmm.v4.images.RateLimitTask" == *((*vOneOfType0)[0].ObjectType_) {
+      p.oneOfType0 = *vOneOfType0
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<vmm.v4.images.RateLimitTask>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<vmm.v4.images.RateLimitTask>"
+      return nil
+
+    }
+  }
+  vOneOfType400 := new(import3.ErrorResponse)
+  if err := json.Unmarshal(b, vOneOfType400); err == nil {
+    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = *vOneOfType400
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+      return nil
+    }
+    }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRateLimitTaskListApiResponseData"))
+}
+
+func (p *OneOfRateLimitTaskListApiResponseData) MarshalJSON() ([]byte, error) {
+  if "List<vmm.v4.images.RateLimitTask>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType0)
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType400)
+  }
+  return nil, errors.New("No value to marshal for OneOfRateLimitTaskListApiResponseData")
+}
+
+type OneOfImagesTaskApiResponseData struct {
+  Discriminator *string `json:"-"`
+  ObjectType_ *string `json:"-"`
+  oneOfType0 *import4.TaskReference `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
+}
+
+func NewOneOfImagesTaskApiResponseData() *OneOfImagesTaskApiResponseData {
+  p := new(OneOfImagesTaskApiResponseData)
+  p.Discriminator = new(string)
+  p.ObjectType_ = new(string)
+  return p
+}
+
+func (p *OneOfImagesTaskApiResponseData) SetValue (v interface {}) error {
+  if nil == p {
+    return errors.New(fmt.Sprintf("OneOfImagesTaskApiResponseData is nil"))
+  }
+  switch v.(type) {
+    case import4.TaskReference:
+      if nil == p.oneOfType0 {p.oneOfType0 = new(import4.TaskReference)}
+      *p.oneOfType0 = v.(import4.TaskReference)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType0.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+    default:
+      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
+  }
+  return nil
+}
+
+func (p *OneOfImagesTaskApiResponseData) GetValue() interface{} {
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType0
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
+  return nil
+}
+
+func (p *OneOfImagesTaskApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType0 := new(import4.TaskReference)
+  if err := json.Unmarshal(b, vOneOfType0); err == nil {
+    if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+          if nil == p.oneOfType0 {p.oneOfType0 = new(import4.TaskReference)}
+      *p.oneOfType0 = *vOneOfType0
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType0.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
+      return nil
+    }
+    }
+  vOneOfType400 := new(import3.ErrorResponse)
+  if err := json.Unmarshal(b, vOneOfType400); err == nil {
+    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = *vOneOfType400
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+      return nil
+    }
+    }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfImagesTaskApiResponseData"))
+}
+
+func (p *OneOfImagesTaskApiResponseData) MarshalJSON() ([]byte, error) {
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType0)
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType400)
+  }
+  return nil, errors.New("No value to marshal for OneOfImagesTaskApiResponseData")
+}
+
 type OneOfImageListApiResponseData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
   oneOfType0 []Image `json:"-"`
 }
 
@@ -2385,9 +2217,9 @@ func (p *OneOfImageListApiResponseData) SetValue (v interface {}) error {
     return errors.New(fmt.Sprintf("OneOfImageListApiResponseData is nil"))
   }
   switch v.(type) {
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
@@ -2415,10 +2247,10 @@ func (p *OneOfImageListApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfImageListApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType400 := new(import2.ErrorResponse)
+  vOneOfType400 := new(import3.ErrorResponse)
   if err := json.Unmarshal(b, vOneOfType400); err == nil {
     if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
       *p.oneOfType400 = *vOneOfType400
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
@@ -2456,7 +2288,7 @@ type OneOfImagePlacementPolicyListApiResponseData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
   oneOfType0 []PlacementPolicyStatus `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
 }
 
 func NewOneOfImagePlacementPolicyListApiResponseData() *OneOfImagePlacementPolicyListApiResponseData {
@@ -2477,9 +2309,9 @@ func (p *OneOfImagePlacementPolicyListApiResponseData) SetValue (v interface {})
       *p.Discriminator = "List<vmm.v4.images.PlacementPolicyStatus>"
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
       *p.ObjectType_ = "List<vmm.v4.images.PlacementPolicyStatus>"
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
@@ -2513,10 +2345,10 @@ func (p *OneOfImagePlacementPolicyListApiResponseData) UnmarshalJSON(b []byte) e
 
     }
   }
-  vOneOfType400 := new(import2.ErrorResponse)
+  vOneOfType400 := new(import3.ErrorResponse)
   if err := json.Unmarshal(b, vOneOfType400); err == nil {
     if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
       *p.oneOfType400 = *vOneOfType400
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
@@ -2538,59 +2370,60 @@ func (p *OneOfImagePlacementPolicyListApiResponseData) MarshalJSON() ([]byte, er
   return nil, errors.New("No value to marshal for OneOfImagePlacementPolicyListApiResponseData")
 }
 
-type OneOfImageClusterLocationListApiResponseData struct {
+type OneOfRateLimitApiResponseData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
-  oneOfType0 []ClusterReference `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
+  oneOfType0 *RateLimit `json:"-"`
 }
 
-func NewOneOfImageClusterLocationListApiResponseData() *OneOfImageClusterLocationListApiResponseData {
-  p := new(OneOfImageClusterLocationListApiResponseData)
+func NewOneOfRateLimitApiResponseData() *OneOfRateLimitApiResponseData {
+  p := new(OneOfRateLimitApiResponseData)
   p.Discriminator = new(string)
   p.ObjectType_ = new(string)
   return p
 }
 
-func (p *OneOfImageClusterLocationListApiResponseData) SetValue (v interface {}) error {
+func (p *OneOfRateLimitApiResponseData) SetValue (v interface {}) error {
   if nil == p {
-    return errors.New(fmt.Sprintf("OneOfImageClusterLocationListApiResponseData is nil"))
+    return errors.New(fmt.Sprintf("OneOfRateLimitApiResponseData is nil"))
   }
   switch v.(type) {
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
       *p.ObjectType_ = *p.oneOfType400.ObjectType_
-    case []ClusterReference:
-      p.oneOfType0 = v.([]ClusterReference)
+    case RateLimit:
+      if nil == p.oneOfType0 {p.oneOfType0 = new(RateLimit)}
+      *p.oneOfType0 = v.(RateLimit)
       if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<vmm.v4.images.ClusterReference>"
+      *p.Discriminator = *p.oneOfType0.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<vmm.v4.images.ClusterReference>"
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
     default:
       return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
   }
   return nil
 }
 
-func (p *OneOfImageClusterLocationListApiResponseData) GetValue() interface{} {
+func (p *OneOfRateLimitApiResponseData) GetValue() interface{} {
   if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
     return *p.oneOfType400
   }
-  if "List<vmm.v4.images.ClusterReference>" == *p.Discriminator {
-    return p.oneOfType0
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType0
   }
   return nil
 }
 
-func (p *OneOfImageClusterLocationListApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType400 := new(import2.ErrorResponse)
+func (p *OneOfRateLimitApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType400 := new(import3.ErrorResponse)
   if err := json.Unmarshal(b, vOneOfType400); err == nil {
     if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
       *p.oneOfType400 = *vOneOfType400
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
@@ -2599,59 +2432,60 @@ func (p *OneOfImageClusterLocationListApiResponseData) UnmarshalJSON(b []byte) e
       return nil
     }
     }
-  vOneOfType0 := new([]ClusterReference)
+  vOneOfType0 := new(RateLimit)
   if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if len(*vOneOfType0) == 0 || "vmm.v4.images.ClusterReference" == *((*vOneOfType0)[0].ObjectType_) {
-      p.oneOfType0 = *vOneOfType0
+    if "vmm.v4.images.RateLimit" == *vOneOfType0.ObjectType_ {
+          if nil == p.oneOfType0 {p.oneOfType0 = new(RateLimit)}
+      *p.oneOfType0 = *vOneOfType0
       if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<vmm.v4.images.ClusterReference>"
+      *p.Discriminator = *p.oneOfType0.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<vmm.v4.images.ClusterReference>"
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
       return nil
-
     }
-  }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfImageClusterLocationListApiResponseData"))
+    }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRateLimitApiResponseData"))
 }
 
-func (p *OneOfImageClusterLocationListApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfRateLimitApiResponseData) MarshalJSON() ([]byte, error) {
   if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
     return json.Marshal(p.oneOfType400)
   }
-  if "List<vmm.v4.images.ClusterReference>" == *p.Discriminator {
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
     return json.Marshal(p.oneOfType0)
   }
-  return nil, errors.New("No value to marshal for OneOfImageClusterLocationListApiResponseData")
+  return nil, errors.New("No value to marshal for OneOfRateLimitApiResponseData")
 }
 
-type OneOfRateLimitTaskListApiResponseData struct {
+type OneOfImageApiResponseData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
-  oneOfType0 []RateLimitTask `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
+  oneOfType0 *Image `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
 }
 
-func NewOneOfRateLimitTaskListApiResponseData() *OneOfRateLimitTaskListApiResponseData {
-  p := new(OneOfRateLimitTaskListApiResponseData)
+func NewOneOfImageApiResponseData() *OneOfImageApiResponseData {
+  p := new(OneOfImageApiResponseData)
   p.Discriminator = new(string)
   p.ObjectType_ = new(string)
   return p
 }
 
-func (p *OneOfRateLimitTaskListApiResponseData) SetValue (v interface {}) error {
+func (p *OneOfImageApiResponseData) SetValue (v interface {}) error {
   if nil == p {
-    return errors.New(fmt.Sprintf("OneOfRateLimitTaskListApiResponseData is nil"))
+    return errors.New(fmt.Sprintf("OneOfImageApiResponseData is nil"))
   }
   switch v.(type) {
-    case []RateLimitTask:
-      p.oneOfType0 = v.([]RateLimitTask)
+    case Image:
+      if nil == p.oneOfType0 {p.oneOfType0 = new(Image)}
+      *p.oneOfType0 = v.(Image)
       if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<vmm.v4.images.RateLimitTask>"
+      *p.Discriminator = *p.oneOfType0.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<vmm.v4.images.RateLimitTask>"
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
@@ -2662,9 +2496,9 @@ func (p *OneOfRateLimitTaskListApiResponseData) SetValue (v interface {}) error 
   return nil
 }
 
-func (p *OneOfRateLimitTaskListApiResponseData) GetValue() interface{} {
-  if "List<vmm.v4.images.RateLimitTask>" == *p.Discriminator {
-    return p.oneOfType0
+func (p *OneOfImageApiResponseData) GetValue() interface{} {
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType0
   }
   if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
     return *p.oneOfType400
@@ -2672,23 +2506,23 @@ func (p *OneOfRateLimitTaskListApiResponseData) GetValue() interface{} {
   return nil
 }
 
-func (p *OneOfRateLimitTaskListApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType0 := new([]RateLimitTask)
+func (p *OneOfImageApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType0 := new(Image)
   if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if len(*vOneOfType0) == 0 || "vmm.v4.images.RateLimitTask" == *((*vOneOfType0)[0].ObjectType_) {
-      p.oneOfType0 = *vOneOfType0
+    if "vmm.v4.images.Image" == *vOneOfType0.ObjectType_ {
+          if nil == p.oneOfType0 {p.oneOfType0 = new(Image)}
+      *p.oneOfType0 = *vOneOfType0
       if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<vmm.v4.images.RateLimitTask>"
+      *p.Discriminator = *p.oneOfType0.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<vmm.v4.images.RateLimitTask>"
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
       return nil
-
     }
-  }
-  vOneOfType400 := new(import2.ErrorResponse)
+    }
+  vOneOfType400 := new(import3.ErrorResponse)
   if err := json.Unmarshal(b, vOneOfType400); err == nil {
     if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
       *p.oneOfType400 = *vOneOfType400
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
@@ -2697,103 +2531,17 @@ func (p *OneOfRateLimitTaskListApiResponseData) UnmarshalJSON(b []byte) error {
       return nil
     }
     }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRateLimitTaskListApiResponseData"))
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfImageApiResponseData"))
 }
 
-func (p *OneOfRateLimitTaskListApiResponseData) MarshalJSON() ([]byte, error) {
-  if "List<vmm.v4.images.RateLimitTask>" == *p.Discriminator {
+func (p *OneOfImageApiResponseData) MarshalJSON() ([]byte, error) {
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
     return json.Marshal(p.oneOfType0)
   }
   if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
     return json.Marshal(p.oneOfType400)
   }
-  return nil, errors.New("No value to marshal for OneOfRateLimitTaskListApiResponseData")
-}
-
-type OneOfRateLimitListApiResponseData struct {
-  Discriminator *string `json:"-"`
-  ObjectType_ *string `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
-  oneOfType0 []RateLimit `json:"-"`
-}
-
-func NewOneOfRateLimitListApiResponseData() *OneOfRateLimitListApiResponseData {
-  p := new(OneOfRateLimitListApiResponseData)
-  p.Discriminator = new(string)
-  p.ObjectType_ = new(string)
-  return p
-}
-
-func (p *OneOfRateLimitListApiResponseData) SetValue (v interface {}) error {
-  if nil == p {
-    return errors.New(fmt.Sprintf("OneOfRateLimitListApiResponseData is nil"))
-  }
-  switch v.(type) {
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-    case []RateLimit:
-      p.oneOfType0 = v.([]RateLimit)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<vmm.v4.images.RateLimit>"
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<vmm.v4.images.RateLimit>"
-    default:
-      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
-  }
-  return nil
-}
-
-func (p *OneOfRateLimitListApiResponseData) GetValue() interface{} {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType400
-  }
-  if "List<vmm.v4.images.RateLimit>" == *p.Discriminator {
-    return p.oneOfType0
-  }
-  return nil
-}
-
-func (p *OneOfRateLimitListApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType400 := new(import2.ErrorResponse)
-  if err := json.Unmarshal(b, vOneOfType400); err == nil {
-    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = *vOneOfType400
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-      return nil
-    }
-    }
-  vOneOfType0 := new([]RateLimit)
-  if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if len(*vOneOfType0) == 0 || "vmm.v4.images.RateLimit" == *((*vOneOfType0)[0].ObjectType_) {
-      p.oneOfType0 = *vOneOfType0
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<vmm.v4.images.RateLimit>"
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<vmm.v4.images.RateLimit>"
-      return nil
-
-    }
-  }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRateLimitListApiResponseData"))
-}
-
-func (p *OneOfRateLimitListApiResponseData) MarshalJSON() ([]byte, error) {
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType400)
-  }
-  if "List<vmm.v4.images.RateLimit>" == *p.Discriminator {
-    return json.Marshal(p.oneOfType0)
-  }
-  return nil, errors.New("No value to marshal for OneOfRateLimitListApiResponseData")
+  return nil, errors.New("No value to marshal for OneOfImageApiResponseData")
 }
 
 type OneOfImageSource struct {
@@ -2883,34 +2631,121 @@ func (p *OneOfImageSource) MarshalJSON() ([]byte, error) {
   return nil, errors.New("No value to marshal for OneOfImageSource")
 }
 
-type OneOfImageCategoriesApiResponseData struct {
+type OneOfImageClusterLocationListApiResponseData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
-  oneOfType0 []CategoryReference `json:"-"`
-  oneOfType400 *import2.ErrorResponse `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
+  oneOfType0 []ClusterReference `json:"-"`
 }
 
-func NewOneOfImageCategoriesApiResponseData() *OneOfImageCategoriesApiResponseData {
-  p := new(OneOfImageCategoriesApiResponseData)
+func NewOneOfImageClusterLocationListApiResponseData() *OneOfImageClusterLocationListApiResponseData {
+  p := new(OneOfImageClusterLocationListApiResponseData)
   p.Discriminator = new(string)
   p.ObjectType_ = new(string)
   return p
 }
 
-func (p *OneOfImageCategoriesApiResponseData) SetValue (v interface {}) error {
+func (p *OneOfImageClusterLocationListApiResponseData) SetValue (v interface {}) error {
   if nil == p {
-    return errors.New(fmt.Sprintf("OneOfImageCategoriesApiResponseData is nil"))
+    return errors.New(fmt.Sprintf("OneOfImageClusterLocationListApiResponseData is nil"))
   }
   switch v.(type) {
-    case []CategoryReference:
-      p.oneOfType0 = v.([]CategoryReference)
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
       if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<vmm.v4.images.CategoryReference>"
+      *p.Discriminator = *p.oneOfType400.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<vmm.v4.images.CategoryReference>"
-    case import2.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
-      *p.oneOfType400 = v.(import2.ErrorResponse)
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+    case []ClusterReference:
+      p.oneOfType0 = v.([]ClusterReference)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<vmm.v4.images.ClusterReference>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<vmm.v4.images.ClusterReference>"
+    default:
+      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
+  }
+  return nil
+}
+
+func (p *OneOfImageClusterLocationListApiResponseData) GetValue() interface{} {
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
+  if "List<vmm.v4.images.ClusterReference>" == *p.Discriminator {
+    return p.oneOfType0
+  }
+  return nil
+}
+
+func (p *OneOfImageClusterLocationListApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType400 := new(import3.ErrorResponse)
+  if err := json.Unmarshal(b, vOneOfType400); err == nil {
+    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = *vOneOfType400
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+      return nil
+    }
+    }
+  vOneOfType0 := new([]ClusterReference)
+  if err := json.Unmarshal(b, vOneOfType0); err == nil {
+    if len(*vOneOfType0) == 0 || "vmm.v4.images.ClusterReference" == *((*vOneOfType0)[0].ObjectType_) {
+      p.oneOfType0 = *vOneOfType0
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<vmm.v4.images.ClusterReference>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<vmm.v4.images.ClusterReference>"
+      return nil
+
+    }
+  }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfImageClusterLocationListApiResponseData"))
+}
+
+func (p *OneOfImageClusterLocationListApiResponseData) MarshalJSON() ([]byte, error) {
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType400)
+  }
+  if "List<vmm.v4.images.ClusterReference>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType0)
+  }
+  return nil, errors.New("No value to marshal for OneOfImageClusterLocationListApiResponseData")
+}
+
+type OneOfPlacementPolicyApiResponseData struct {
+  Discriminator *string `json:"-"`
+  ObjectType_ *string `json:"-"`
+  oneOfType0 *PlacementPolicy `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
+}
+
+func NewOneOfPlacementPolicyApiResponseData() *OneOfPlacementPolicyApiResponseData {
+  p := new(OneOfPlacementPolicyApiResponseData)
+  p.Discriminator = new(string)
+  p.ObjectType_ = new(string)
+  return p
+}
+
+func (p *OneOfPlacementPolicyApiResponseData) SetValue (v interface {}) error {
+  if nil == p {
+    return errors.New(fmt.Sprintf("OneOfPlacementPolicyApiResponseData is nil"))
+  }
+  switch v.(type) {
+    case PlacementPolicy:
+      if nil == p.oneOfType0 {p.oneOfType0 = new(PlacementPolicy)}
+      *p.oneOfType0 = v.(PlacementPolicy)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType0.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
@@ -2921,9 +2756,9 @@ func (p *OneOfImageCategoriesApiResponseData) SetValue (v interface {}) error {
   return nil
 }
 
-func (p *OneOfImageCategoriesApiResponseData) GetValue() interface{} {
-  if "List<vmm.v4.images.CategoryReference>" == *p.Discriminator {
-    return p.oneOfType0
+func (p *OneOfPlacementPolicyApiResponseData) GetValue() interface{} {
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType0
   }
   if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
     return *p.oneOfType400
@@ -2931,23 +2766,23 @@ func (p *OneOfImageCategoriesApiResponseData) GetValue() interface{} {
   return nil
 }
 
-func (p *OneOfImageCategoriesApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType0 := new([]CategoryReference)
+func (p *OneOfPlacementPolicyApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType0 := new(PlacementPolicy)
   if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if len(*vOneOfType0) == 0 || "vmm.v4.images.CategoryReference" == *((*vOneOfType0)[0].ObjectType_) {
-      p.oneOfType0 = *vOneOfType0
+    if "vmm.v4.images.PlacementPolicy" == *vOneOfType0.ObjectType_ {
+          if nil == p.oneOfType0 {p.oneOfType0 = new(PlacementPolicy)}
+      *p.oneOfType0 = *vOneOfType0
       if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<vmm.v4.images.CategoryReference>"
+      *p.Discriminator = *p.oneOfType0.ObjectType_
       if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<vmm.v4.images.CategoryReference>"
+      *p.ObjectType_ = *p.oneOfType0.ObjectType_
       return nil
-
     }
-  }
-  vOneOfType400 := new(import2.ErrorResponse)
+    }
+  vOneOfType400 := new(import3.ErrorResponse)
   if err := json.Unmarshal(b, vOneOfType400); err == nil {
     if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import2.ErrorResponse)}
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
       *p.oneOfType400 = *vOneOfType400
       if nil == p.Discriminator {p.Discriminator = new(string)}
       *p.Discriminator = *p.oneOfType400.ObjectType_
@@ -2956,16 +2791,188 @@ func (p *OneOfImageCategoriesApiResponseData) UnmarshalJSON(b []byte) error {
       return nil
     }
     }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfImageCategoriesApiResponseData"))
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfPlacementPolicyApiResponseData"))
 }
 
-func (p *OneOfImageCategoriesApiResponseData) MarshalJSON() ([]byte, error) {
-  if "List<vmm.v4.images.CategoryReference>" == *p.Discriminator {
+func (p *OneOfPlacementPolicyApiResponseData) MarshalJSON() ([]byte, error) {
+  if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
     return json.Marshal(p.oneOfType0)
   }
   if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
     return json.Marshal(p.oneOfType400)
   }
-  return nil, errors.New("No value to marshal for OneOfImageCategoriesApiResponseData")
+  return nil, errors.New("No value to marshal for OneOfPlacementPolicyApiResponseData")
+}
+
+type OneOfRateLimitListApiResponseData struct {
+  Discriminator *string `json:"-"`
+  ObjectType_ *string `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
+  oneOfType0 []RateLimit `json:"-"`
+}
+
+func NewOneOfRateLimitListApiResponseData() *OneOfRateLimitListApiResponseData {
+  p := new(OneOfRateLimitListApiResponseData)
+  p.Discriminator = new(string)
+  p.ObjectType_ = new(string)
+  return p
+}
+
+func (p *OneOfRateLimitListApiResponseData) SetValue (v interface {}) error {
+  if nil == p {
+    return errors.New(fmt.Sprintf("OneOfRateLimitListApiResponseData is nil"))
+  }
+  switch v.(type) {
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+    case []RateLimit:
+      p.oneOfType0 = v.([]RateLimit)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<vmm.v4.images.RateLimit>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<vmm.v4.images.RateLimit>"
+    default:
+      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
+  }
+  return nil
+}
+
+func (p *OneOfRateLimitListApiResponseData) GetValue() interface{} {
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
+  if "List<vmm.v4.images.RateLimit>" == *p.Discriminator {
+    return p.oneOfType0
+  }
+  return nil
+}
+
+func (p *OneOfRateLimitListApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType400 := new(import3.ErrorResponse)
+  if err := json.Unmarshal(b, vOneOfType400); err == nil {
+    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = *vOneOfType400
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+      return nil
+    }
+    }
+  vOneOfType0 := new([]RateLimit)
+  if err := json.Unmarshal(b, vOneOfType0); err == nil {
+    if len(*vOneOfType0) == 0 || "vmm.v4.images.RateLimit" == *((*vOneOfType0)[0].ObjectType_) {
+      p.oneOfType0 = *vOneOfType0
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<vmm.v4.images.RateLimit>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<vmm.v4.images.RateLimit>"
+      return nil
+
+    }
+  }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRateLimitListApiResponseData"))
+}
+
+func (p *OneOfRateLimitListApiResponseData) MarshalJSON() ([]byte, error) {
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType400)
+  }
+  if "List<vmm.v4.images.RateLimit>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType0)
+  }
+  return nil, errors.New("No value to marshal for OneOfRateLimitListApiResponseData")
+}
+
+type OneOfResolveRateLimitsApiResponseData struct {
+  Discriminator *string `json:"-"`
+  ObjectType_ *string `json:"-"`
+  oneOfType0 []EffectiveRateLimit `json:"-"`
+  oneOfType400 *import3.ErrorResponse `json:"-"`
+}
+
+func NewOneOfResolveRateLimitsApiResponseData() *OneOfResolveRateLimitsApiResponseData {
+  p := new(OneOfResolveRateLimitsApiResponseData)
+  p.Discriminator = new(string)
+  p.ObjectType_ = new(string)
+  return p
+}
+
+func (p *OneOfResolveRateLimitsApiResponseData) SetValue (v interface {}) error {
+  if nil == p {
+    return errors.New(fmt.Sprintf("OneOfResolveRateLimitsApiResponseData is nil"))
+  }
+  switch v.(type) {
+    case []EffectiveRateLimit:
+      p.oneOfType0 = v.([]EffectiveRateLimit)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<vmm.v4.images.EffectiveRateLimit>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<vmm.v4.images.EffectiveRateLimit>"
+    case import3.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = v.(import3.ErrorResponse)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+    default:
+      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
+  }
+  return nil
+}
+
+func (p *OneOfResolveRateLimitsApiResponseData) GetValue() interface{} {
+  if "List<vmm.v4.images.EffectiveRateLimit>" == *p.Discriminator {
+    return p.oneOfType0
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
+  return nil
+}
+
+func (p *OneOfResolveRateLimitsApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType0 := new([]EffectiveRateLimit)
+  if err := json.Unmarshal(b, vOneOfType0); err == nil {
+    if len(*vOneOfType0) == 0 || "vmm.v4.images.EffectiveRateLimit" == *((*vOneOfType0)[0].ObjectType_) {
+      p.oneOfType0 = *vOneOfType0
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<vmm.v4.images.EffectiveRateLimit>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<vmm.v4.images.EffectiveRateLimit>"
+      return nil
+
+    }
+  }
+  vOneOfType400 := new(import3.ErrorResponse)
+  if err := json.Unmarshal(b, vOneOfType400); err == nil {
+    if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import3.ErrorResponse)}
+      *p.oneOfType400 = *vOneOfType400
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+      return nil
+    }
+    }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfResolveRateLimitsApiResponseData"))
+}
+
+func (p *OneOfResolveRateLimitsApiResponseData) MarshalJSON() ([]byte, error) {
+  if "List<vmm.v4.images.EffectiveRateLimit>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType0)
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType400)
+  }
+  return nil, errors.New("No value to marshal for OneOfResolveRateLimitsApiResponseData")
 }
 

@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/response/response_model.go.
  *
- * Product version: 16.2.0-SNAPSHOT
+ * Product version: 16.7.0-SNAPSHOT
  *
  * Part of the Catalog REST API
  *
@@ -14,7 +14,7 @@
 */
 package response
 import (
-  import1 "github.com/nutanix-core/ntnx-api-go-sdk-internal/catalog_go_sdk/v16/models/common/v1/config"
+  import1 "github.com/nishantikagarg/sample-go-repo/catalog_go_sdk/v16/models/common/v1/config"
 )
 
 /**
