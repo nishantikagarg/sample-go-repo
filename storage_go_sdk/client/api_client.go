@@ -33,21 +33,6 @@ var (
     retryStatusList = []int{408, 503, 504}
 )
 
-/**
-    Generic API client for Swagger client library builds.
-    Swagger generic API client. This client handles the client-
-    server communication, and is invariant across implementations. Specifics of
-    the methods and models for each application are generated from the Swagger
-    templates.
-
-    Parameters :-
-      BasePath (string) : base path or host for all http request made by this client
-      DefaultHeaders (map[string]string) : List of default headers as part of each request
-      Debug (bool) : flag to enable debug logging (default : empty)
-      UserAgent (string) : User-Agent header's value (default: Swagger-Generator/1.0.0/go)
-      BackOffPeriod (time.Duration) : Backoff duration between successive retry attempts (default: 3 sec)
-      MaxRetryAttempts (int) : Maximum number of retry attempts to be made at a time (default 5) 
-*/
 type ApiClient struct {
 	BasePath      		    string            		`json:"host,omitempty"`
 	DefaultHeaders 		    map[string]string 		`json:"defaultHeader,omitempty"`
@@ -58,6 +43,8 @@ type ApiClient struct {
 	MaxRetryAttempts 	    int                     `json:"maxRetryAttempts,omitempty"`
 	httpClient    		    *http.Client
     authentication		    map[string]interface{}
+    refreshCookie           bool
+    basicAuth               string
 }
 
 /**
@@ -71,6 +58,7 @@ func NewApiClient() *ApiClient {
 		BackOffPeriod: 		        3 * time.Second,
 		MaxRetryAttempts: 	        5,
 		authentication:		        make(map[string]interface{}),
+        refreshCookie:              true,
 	}
     a.setupClient()
 	return a
@@ -82,11 +70,27 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	accepts []string, contentType []string, authNames []string) ([]byte, error) {
 	path := a.BasePath + *uri
 
+    if headerParams["Authorization"] != "" {
+        a.basicAuth = headerParams["Authorization"]
+    }
+
+    if a.DefaultHeaders["Authorization"] != "" {
+        a.basicAuth = a.DefaultHeaders["Authorization"]
+    }
+
 	// set Content-Type header
 	httpContentType := a.selectHeaderContentType(contentType)
 	if httpContentType != "" {
 		headerParams["Content-Type"] = httpContentType
 	}
+
+    // Set Cookie header
+    if a.Cookie != "" {
+        // Remove basic auth header if cookie is available
+        delete(a.DefaultHeaders, "Authorization")
+        delete(headerParams, "Authorization")
+        headerParams["Cookie"] = a.Cookie
+    }
 
 	// set Accept header
 	httpHeaderAccept := a.selectHeaderAccept(accepts)
@@ -116,6 +120,15 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	}
 
 	response, err := a.httpClient.Do(request)
+
+    // Retry one more time without the cookie but with basic auth header
+    if response != nil && response.StatusCode == 401 {
+        a.refreshCookie = true
+        request.Header["Authorization"] = []string{a.basicAuth}
+        delete(request.Header, "Cookie")
+        response, err = a.httpClient.Do(request)
+    }
+
 	if err != nil {
 		return nil, err
 	}
@@ -131,6 +144,8 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	if nil == response {
 		return nil, ReportError("response is nil!")
 	}
+
+    a.updateCookies(response)
 
     if response.StatusCode == 204 {
         return nil, nil
@@ -508,6 +523,36 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 		return nil, err
 	}
 	return bodyBuf, nil
+}
+
+// Set Cookie information to reuse in subsequent requests for a valid response
+func (a *ApiClient) updateCookies(response *http.Response) {
+    if a.refreshCookie {
+        cookiesList := response.Header["Set-Cookie"]
+        if len(cookiesList) > 0 {
+            cookie := ""
+            for _, value := range cookiesList {
+                finalCookie := strings.SplitN(value, ";", 2)[0]
+                if strings.Contains(finalCookie, "=") {
+                    finalCookie = strings.TrimSpace(finalCookie)
+                } else {
+                    finalCookie = ""
+                }
+
+                if finalCookie != "" {
+                    cookie += finalCookie + ";"
+                }
+            }
+
+            // Remove trailing ";"
+            if cookie != "" {
+                cookie = strings.TrimSuffix(cookie, ";")
+            }
+
+            a.Cookie = cookie
+            a.refreshCookie = false
+        }
+    }
 }
 
 // BasicAuth provides basic http authentication to a request passed via context using ContextBasicAuth

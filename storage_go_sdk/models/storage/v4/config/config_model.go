@@ -1,7 +1,7 @@
 /*
  * Generated file models/storage/v4/config/config_model.go.
  *
- * Product version: 16.2.0-SNAPSHOT
+ * Product version: 16.7.0-SNAPSHOT
  *
  * Part of the Storage APIs
  *
@@ -15,13 +15,13 @@
 package config
 import (
   "bytes"
-  import4 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/common/v1/config"
-  import2 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/common/v1/response"
+  import4 "github.com/nutanix-core/ntnx-api-go-sdk-internal/storage_go_sdk/v16/models/common/v1/config"
+  import2 "github.com/nutanix-core/ntnx-api-go-sdk-internal/storage_go_sdk/v16/models/common/v1/response"
   "encoding/json"
   "errors"
   "fmt"
-  import3 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/prism/v4/config"
-  import1 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/storage/v4/error"
+  import3 "github.com/nutanix-core/ntnx-api-go-sdk-internal/storage_go_sdk/v16/models/prism/v4/config"
+  import1 "github.com/nutanix-core/ntnx-api-go-sdk-internal/storage_go_sdk/v16/models/storage/v4/error"
 )
 
 /**
@@ -286,6 +286,41 @@ func NewCategoryDetails() *CategoryDetails {
 
 
 
+
+type CategoryDetailsProjection struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  
+  CategoryDetailsProjection *CategoryDetailsProjection `json:"categoryDetailsProjection,omitempty"`
+  
+  EntityType *import4.EntityType `json:"entityType,omitempty"`
+  
+  ExtId *string `json:"extId,omitempty"`
+  
+  Name *string `json:"name,omitempty"`
+  
+  Uris []string `json:"uris,omitempty"`
+}
+
+func NewCategoryDetailsProjection() *CategoryDetailsProjection {
+  p := new(CategoryDetailsProjection)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "storage.v4.config.CategoryDetailsProjection"
+  p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.CategoryDetailsProjection"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+
 /**
 The list of categories to be associated/disassociated with the Volume Group.
 */
@@ -305,6 +340,72 @@ func NewCategoryEntityReferences() *CategoryEntityReferences {
   p.ObjectType_ = new(string)
   *p.ObjectType_ = "storage.v4.config.CategoryEntityReferences"
   p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.CategoryEntityReferences"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+
+
+type Cluster struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  Cluster Uuid.
+  */
+  ClusterExtId *string `json:"clusterExtId,omitempty"`
+  /**
+  Name of the Cluster.
+  */
+  ClusterName *string `json:"clusterName,omitempty"`
+}
+
+func NewCluster() *Cluster {
+  p := new(Cluster)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "storage.v4.config.Cluster"
+  p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.Cluster"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+
+
+type ClusterProjection struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  Cluster Uuid.
+  */
+  ClusterExtId *string `json:"clusterExtId,omitempty"`
+  /**
+  Name of the Cluster.
+  */
+  ClusterName *string `json:"clusterName,omitempty"`
+}
+
+func NewClusterProjection() *ClusterProjection {
+  p := new(ClusterProjection)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "storage.v4.config.ClusterProjection"
+  p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.ClusterProjection"}
   p.UnknownFields_ = map[string]interface{}{}
 
 
@@ -1318,10 +1419,16 @@ type IscsiClient struct {
   Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  
+  AttachmentSite *VolumeGroupAttachmentSite `json:"attachmentSite,omitempty"`
   /**
   iSCSI initiator client secret in case of CHAP authentication. This field should not be provided in case the authentication type is not set to CHAP.
   */
   ClientSecret *string `json:"clientSecret,omitempty"`
+  /**
+  Name of the cluster associated with the iSCSI client. Populated only upon odata expand.
+  */
+  ClusterName *string `json:"clusterName,omitempty"`
   /**
   The UUID of the cluster that will host the iSCSI client.
   */
@@ -1338,6 +1445,10 @@ type IscsiClient struct {
   IscsiInitiatorName *string `json:"iscsiInitiatorName,omitempty"`
   
   IscsiInitiatorNetworkId *import4.IPAddressOrFQDN `json:"iscsiInitiatorNetworkId,omitempty"`
+  /**
+  List of iSCSI targets that will be visible and accessible to the iSCSI client.
+  */
+  IscsiTargetNames []string `json:"iscsiTargetNames,omitempty"`
   /**
   A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
   */
@@ -1373,10 +1484,18 @@ type IscsiClientProjection struct {
   Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  
+  AttachmentSite *VolumeGroupAttachmentSite `json:"attachmentSite,omitempty"`
   /**
   iSCSI initiator client secret in case of CHAP authentication. This field should not be provided in case the authentication type is not set to CHAP.
   */
   ClientSecret *string `json:"clientSecret,omitempty"`
+  /**
+  Name of the cluster associated with the iSCSI client. Populated only upon odata expand.
+  */
+  ClusterName *string `json:"clusterName,omitempty"`
+  
+  ClusterProjection *ClusterProjection `json:"clusterProjection,omitempty"`
   /**
   The UUID of the cluster that will host the iSCSI client.
   */
@@ -1393,6 +1512,10 @@ type IscsiClientProjection struct {
   IscsiInitiatorName *string `json:"iscsiInitiatorName,omitempty"`
   
   IscsiInitiatorNetworkId *import4.IPAddressOrFQDN `json:"iscsiInitiatorNetworkId,omitempty"`
+  /**
+  List of iSCSI targets that will be visible and accessible to the iSCSI client.
+  */
+  IscsiTargetNames []string `json:"iscsiTargetNames,omitempty"`
   /**
   A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
   */
@@ -2099,6 +2222,10 @@ type VmAttachment struct {
   The index on the SCSI bus to attach the VM to the Volume Group.
   */
   Index *int `json:"index,omitempty"`
+  /**
+  Name of the VMs attached to the Volume Group. Populated only upon odata expand.
+  */
+  Name *string `json:"name,omitempty"`
 }
 
 func NewVmAttachment() *VmAttachment {
@@ -2106,6 +2233,45 @@ func NewVmAttachment() *VmAttachment {
   p.ObjectType_ = new(string)
   *p.ObjectType_ = "storage.v4.config.VmAttachment"
   p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.VmAttachment"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+
+
+type VmAttachmentProjection struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  The external identifier of the VM.
+  */
+  ExtId *string `json:"extId"`
+  /**
+  The index on the SCSI bus to attach the VM to the Volume Group.
+  */
+  Index *int `json:"index,omitempty"`
+  /**
+  Name of the VMs attached to the Volume Group. Populated only upon odata expand.
+  */
+  Name *string `json:"name,omitempty"`
+  
+  VmAttachmentProjection *VmAttachmentProjection `json:"vmAttachmentProjection,omitempty"`
+}
+
+func NewVmAttachmentProjection() *VmAttachmentProjection {
+  p := new(VmAttachmentProjection)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "storage.v4.config.VmAttachmentProjection"
+  p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.VmAttachmentProjection"}
   p.UnknownFields_ = map[string]interface{}{}
 
 
@@ -2126,6 +2292,10 @@ type VolumeDisk struct {
   Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  Name of the container associated with the Volume Disk. Populated only upon odata expand.
+  */
+  ContainerName *string `json:"containerName,omitempty"`
   /**
   Description of the Volume Disk.
   */
@@ -2175,6 +2345,69 @@ func NewVolumeDisk() *VolumeDisk {
 
 
 
+
+type VolumeDiskProjection struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  Name of the container associated with the Volume Disk. Populated only upon odata expand.
+  */
+  ContainerName *string `json:"containerName,omitempty"`
+  /**
+  Description of the Volume Disk.
+  */
+  Description *string `json:"description,omitempty"`
+  
+  DiskDataSourceReference *import4.EntityReference `json:"diskDataSourceReference,omitempty"`
+  /**
+  Size of the disk in bytes.
+  */
+  DiskSizeBytes *int64 `json:"diskSizeBytes,omitempty"`
+  
+  DiskStorageFeatures *DiskStorageFeatures `json:"diskStorageFeatures,omitempty"`
+  /**
+  A globally unique identifier of an instance that is suitable for external consumption.
+  */
+  ExtId *string `json:"extId,omitempty"`
+  /**
+  Index of the disk in a Volume Group. This field is immutable.
+  */
+  Index *int `json:"index,omitempty"`
+  /**
+  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+  */
+  Links []import2.ApiLink `json:"links,omitempty"`
+  /**
+  Storage container on which the disk must be created.
+  */
+  StorageContainerId *string `json:"storageContainerId,omitempty"`
+  /**
+  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+  */
+  TenantId *string `json:"tenantId,omitempty"`
+  
+  VolumeDiskProjection *VolumeDiskProjection `json:"volumeDiskProjection,omitempty"`
+}
+
+func NewVolumeDiskProjection() *VolumeDiskProjection {
+  p := new(VolumeDiskProjection)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "storage.v4.config.VolumeDiskProjection"
+  p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.VolumeDiskProjection"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+
 /**
 A model that represents Volume Group resources.
 */
@@ -2185,6 +2418,14 @@ type VolumeGroup struct {
   Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  The list of categories attached to the Volume Group. Populated only upon odata expand.
+  */
+  CategoryIdList []string `json:"categoryIdList,omitempty"`
+  /**
+  Name of the cluster associated with the Volume Group. Populated only upon odata expand.
+  */
+  ClusterName *string `json:"clusterName,omitempty"`
   /**
   The UUID of the cluster that will host the Volume Group. This is mandatory to be specified for creating a Volume Group on Prism Central.
   */
@@ -2208,6 +2449,10 @@ type VolumeGroup struct {
   */
   IsHidden *bool `json:"isHidden,omitempty"`
   /**
+  The list of iSCSI clients attached to the Volume Group. Populated only upon odata expand.
+  */
+  IscsiAttachments []IscsiClient `json:"iscsiAttachments,omitempty"`
+  /**
   iSCSI target full name. The spec should not comprise both iSCSI target prefix and iSCSI target name.
   */
   IscsiTargetName *string `json:"iscsiTargetName,omitempty"`
@@ -2227,6 +2472,10 @@ type VolumeGroup struct {
   Volume Group name.
   */
   Name *string `json:"name,omitempty"`
+  /**
+  Owner reference information of a Volume Group. Populated only upon odata expand.
+  */
+  OwnerReference *string `json:"ownerReference,omitempty"`
   
   SharingStatus *SharingStatus `json:"sharingStatus,omitempty"`
   
@@ -2241,6 +2490,14 @@ type VolumeGroup struct {
   TenantId *string `json:"tenantId,omitempty"`
   
   UsageType *UsageType `json:"usageType,omitempty"`
+  /**
+  The list of VMs attached to the Volume Group. Populated only upon odata expand.
+  */
+  VmAttachments []VmAttachment `json:"vmAttachments,omitempty"`
+  /**
+  The list of Volume Disks associated with the Volume Group. Populated only upon odata expand.
+  */
+  VolumeDisks []VolumeDisk `json:"volumeDisks,omitempty"`
 }
 
 func NewVolumeGroup() *VolumeGroup {
@@ -2248,6 +2505,213 @@ func NewVolumeGroup() *VolumeGroup {
   p.ObjectType_ = new(string)
   *p.ObjectType_ = "storage.v4.config.VolumeGroup"
   p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.VolumeGroup"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+
+/**
+The site where the Volume Group attach operation should be processed.
+*/
+type VolumeGroupAttachmentSite int
+
+const(
+  VOLUMEGROUPATTACHMENTSITE_UNKNOWN VolumeGroupAttachmentSite = 0
+  VOLUMEGROUPATTACHMENTSITE_REDACTED VolumeGroupAttachmentSite = 1
+  VOLUMEGROUPATTACHMENTSITE_PRIMARY VolumeGroupAttachmentSite = 2
+  VOLUMEGROUPATTACHMENTSITE_SECONDARY VolumeGroupAttachmentSite = 3
+)
+
+// returns the name of the enum given an ordinal number
+func (e *VolumeGroupAttachmentSite) name(index int) string {
+  names := [...]string {
+    "$UNKNOWN",
+    "$REDACTED",
+    "PRIMARY",
+    "SECONDARY",
+  }
+  if index < 0 || index >= len(names) {
+    return "$UNKNOWN"
+  }
+  return names[index]
+}
+// returns the enum type given a string value
+func (e *VolumeGroupAttachmentSite) index(name string) VolumeGroupAttachmentSite {
+  names := [...]string {
+    "$UNKNOWN",
+    "$REDACTED",
+    "PRIMARY",
+    "SECONDARY",
+  }
+  for idx := range names {
+    if names[idx] == name {
+      return VolumeGroupAttachmentSite(idx)
+    }
+  }
+  return VOLUMEGROUPATTACHMENTSITE_UNKNOWN
+}
+
+func (e *VolumeGroupAttachmentSite) UnmarshalJSON(b []byte) error {
+  var enumStr string
+  if err := json.Unmarshal(b, &enumStr); err != nil {
+    return errors.New(fmt.Sprintf("Unable to unmarshal for VolumeGroupAttachmentSite:%s", err))
+  }
+  *e = e.index(enumStr)
+  return nil
+}
+
+func (e *VolumeGroupAttachmentSite) MarshalJSON() ([]byte, error) {
+  b := bytes.NewBufferString(`"`)
+  b.WriteString(e.name(int(*e)))
+  b.WriteString(`"`)
+  return b.Bytes(), nil
+}
+
+func (e VolumeGroupAttachmentSite) Ref() *VolumeGroupAttachmentSite {
+  return &e
+}
+
+
+
+type VolumeGroupEntityCapability struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  The list of categories attached to a Volume Group.
+  */
+  CategoryIdList []string `json:"categoryIdList,omitempty"`
+  /**
+  Volume Group entity kind.
+  */
+  Kind *string `json:"kind,omitempty"`
+  /**
+  Uuid of the Volume Group.
+  */
+  KindId *string `json:"kindId,omitempty"`
+  /**
+  Owner reference information of a Volume Group.
+  */
+  OwnerReference *string `json:"ownerReference,omitempty"`
+}
+
+func NewVolumeGroupEntityCapability() *VolumeGroupEntityCapability {
+  p := new(VolumeGroupEntityCapability)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "storage.v4.config.VolumeGroupEntityCapability"
+  p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.VolumeGroupEntityCapability"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+
+
+type VolumeGroupEntityCapabilityProjection struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  The list of categories attached to a Volume Group.
+  */
+  CategoryIdList []string `json:"categoryIdList,omitempty"`
+  /**
+  Volume Group entity kind.
+  */
+  Kind *string `json:"kind,omitempty"`
+  /**
+  Uuid of the Volume Group.
+  */
+  KindId *string `json:"kindId,omitempty"`
+  /**
+  Owner reference information of a Volume Group.
+  */
+  OwnerReference *string `json:"ownerReference,omitempty"`
+}
+
+func NewVolumeGroupEntityCapabilityProjection() *VolumeGroupEntityCapabilityProjection {
+  p := new(VolumeGroupEntityCapabilityProjection)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "storage.v4.config.VolumeGroupEntityCapabilityProjection"
+  p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.VolumeGroupEntityCapabilityProjection"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+
+/**
+The list of properties that can be expanded on Volume Group entity.
+*/
+type VolumeGroupExpand struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /**
+  The list of categories attached to the Volume Group. Populated only upon odata expand.
+  */
+  CategoryIdList []string `json:"categoryIdList,omitempty"`
+  /**
+  Name of the cluster associated with the Volume Group. Populated only upon odata expand.
+  */
+  ClusterName *string `json:"clusterName,omitempty"`
+  /**
+  A globally unique identifier of an instance that is suitable for external consumption.
+  */
+  ExtId *string `json:"extId,omitempty"`
+  /**
+  The list of iSCSI clients attached to the Volume Group. Populated only upon odata expand.
+  */
+  IscsiAttachments []IscsiClient `json:"iscsiAttachments,omitempty"`
+  /**
+  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+  */
+  Links []import2.ApiLink `json:"links,omitempty"`
+  /**
+  Owner reference information of a Volume Group. Populated only upon odata expand.
+  */
+  OwnerReference *string `json:"ownerReference,omitempty"`
+  /**
+  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+  */
+  TenantId *string `json:"tenantId,omitempty"`
+  /**
+  The list of VMs attached to the Volume Group. Populated only upon odata expand.
+  */
+  VmAttachments []VmAttachment `json:"vmAttachments,omitempty"`
+  /**
+  The list of Volume Disks associated with the Volume Group. Populated only upon odata expand.
+  */
+  VolumeDisks []VolumeDisk `json:"volumeDisks,omitempty"`
+}
+
+func NewVolumeGroupExpand() *VolumeGroupExpand {
+  p := new(VolumeGroupExpand)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "storage.v4.config.VolumeGroupExpand"
+  p.Reserved_ = map[string]interface{}{"$fqObjectType": "storage.v4.r0.a3.config.VolumeGroupExpand"}
   p.UnknownFields_ = map[string]interface{}{}
 
 
@@ -2302,6 +2766,16 @@ type VolumeGroupProjection struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /**
+  The list of categories attached to the Volume Group. Populated only upon odata expand.
+  */
+  CategoryIdList []string `json:"categoryIdList,omitempty"`
+  /**
+  Name of the cluster associated with the Volume Group. Populated only upon odata expand.
+  */
+  ClusterName *string `json:"clusterName,omitempty"`
+  
+  ClusterProjection *ClusterProjection `json:"clusterProjection,omitempty"`
+  /**
   The UUID of the cluster that will host the Volume Group. This is mandatory to be specified for creating a Volume Group on Prism Central.
   */
   ClusterReference *string `json:"clusterReference,omitempty"`
@@ -2324,6 +2798,12 @@ type VolumeGroupProjection struct {
   */
   IsHidden *bool `json:"isHidden,omitempty"`
   /**
+  The list of iSCSI clients attached to the Volume Group. Populated only upon odata expand.
+  */
+  IscsiAttachments []IscsiClient `json:"iscsiAttachments,omitempty"`
+  
+  IscsiClientProjection *IscsiClientProjection `json:"iscsiClientProjection,omitempty"`
+  /**
   iSCSI target full name. The spec should not comprise both iSCSI target prefix and iSCSI target name.
   */
   IscsiTargetName *string `json:"iscsiTargetName,omitempty"`
@@ -2343,6 +2823,10 @@ type VolumeGroupProjection struct {
   Volume Group name.
   */
   Name *string `json:"name,omitempty"`
+  /**
+  Owner reference information of a Volume Group. Populated only upon odata expand.
+  */
+  OwnerReference *string `json:"ownerReference,omitempty"`
   
   SharingStatus *SharingStatus `json:"sharingStatus,omitempty"`
   
@@ -2357,6 +2841,20 @@ type VolumeGroupProjection struct {
   TenantId *string `json:"tenantId,omitempty"`
   
   UsageType *UsageType `json:"usageType,omitempty"`
+  
+  VmAttachmentProjection *VmAttachmentProjection `json:"vmAttachmentProjection,omitempty"`
+  /**
+  The list of VMs attached to the Volume Group. Populated only upon odata expand.
+  */
+  VmAttachments []VmAttachment `json:"vmAttachments,omitempty"`
+  
+  VolumeDiskProjection *VolumeDiskProjection `json:"volumeDiskProjection,omitempty"`
+  /**
+  The list of Volume Disks associated with the Volume Group. Populated only upon odata expand.
+  */
+  VolumeDisks []VolumeDisk `json:"volumeDisks,omitempty"`
+  
+  VolumeGroupEntityCapabilityProjection *VolumeGroupEntityCapabilityProjection `json:"volumeGroupEntityCapabilityProjection,omitempty"`
 }
 
 func NewVolumeGroupProjection() *VolumeGroupProjection {
@@ -2491,92 +2989,6 @@ func (p *OneOfUpdateVolumeGroupMetadataInfoApiResponseData) MarshalJSON() ([]byt
     return json.Marshal(p.oneOfType400)
   }
   return nil, errors.New("No value to marshal for OneOfUpdateVolumeGroupMetadataInfoApiResponseData")
-}
-
-type OneOfGetVolumeDisksApiResponseData struct {
-  Discriminator *string `json:"-"`
-  ObjectType_ *string `json:"-"`
-  oneOfType0 []VolumeDisk `json:"-"`
-  oneOfType400 *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetVolumeDisksApiResponseData() *OneOfGetVolumeDisksApiResponseData {
-  p := new(OneOfGetVolumeDisksApiResponseData)
-  p.Discriminator = new(string)
-  p.ObjectType_ = new(string)
-  return p
-}
-
-func (p *OneOfGetVolumeDisksApiResponseData) SetValue (v interface {}) error {
-  if nil == p {
-    return errors.New(fmt.Sprintf("OneOfGetVolumeDisksApiResponseData is nil"))
-  }
-  switch v.(type) {
-    case []VolumeDisk:
-      p.oneOfType0 = v.([]VolumeDisk)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<storage.v4.config.VolumeDisk>"
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<storage.v4.config.VolumeDisk>"
-    case import1.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
-      *p.oneOfType400 = v.(import1.ErrorResponse)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-    default:
-      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
-  }
-  return nil
-}
-
-func (p *OneOfGetVolumeDisksApiResponseData) GetValue() interface{} {
-  if "List<storage.v4.config.VolumeDisk>" == *p.Discriminator {
-    return p.oneOfType0
-  }
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType400
-  }
-  return nil
-}
-
-func (p *OneOfGetVolumeDisksApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType0 := new([]VolumeDisk)
-  if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if len(*vOneOfType0) == 0 || "storage.v4.config.VolumeDisk" == *((*vOneOfType0)[0].ObjectType_) {
-      p.oneOfType0 = *vOneOfType0
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<storage.v4.config.VolumeDisk>"
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<storage.v4.config.VolumeDisk>"
-      return nil
-
-    }
-  }
-  vOneOfType400 := new(import1.ErrorResponse)
-  if err := json.Unmarshal(b, vOneOfType400); err == nil {
-    if "storage.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
-      *p.oneOfType400 = *vOneOfType400
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-      return nil
-    }
-    }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVolumeDisksApiResponseData"))
-}
-
-func (p *OneOfGetVolumeDisksApiResponseData) MarshalJSON() ([]byte, error) {
-  if "List<storage.v4.config.VolumeDisk>" == *p.Discriminator {
-    return json.Marshal(p.oneOfType0)
-  }
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType400)
-  }
-  return nil, errors.New("No value to marshal for OneOfGetVolumeDisksApiResponseData")
 }
 
 type OneOfResumeVolumeGroupSynchronousReplicationApiResponseData struct {
@@ -2868,6 +3280,117 @@ func (p *OneOfAttachVmApiResponseData) MarshalJSON() ([]byte, error) {
     return json.Marshal(p.oneOfType400)
   }
   return nil, errors.New("No value to marshal for OneOfAttachVmApiResponseData")
+}
+
+type OneOfGetVmAttachmentsApiResponseData struct {
+  Discriminator *string `json:"-"`
+  ObjectType_ *string `json:"-"`
+  oneOfType401 []VmAttachmentProjection `json:"-"`
+  oneOfType0 []VmAttachment `json:"-"`
+  oneOfType400 *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetVmAttachmentsApiResponseData() *OneOfGetVmAttachmentsApiResponseData {
+  p := new(OneOfGetVmAttachmentsApiResponseData)
+  p.Discriminator = new(string)
+  p.ObjectType_ = new(string)
+  return p
+}
+
+func (p *OneOfGetVmAttachmentsApiResponseData) SetValue (v interface {}) error {
+  if nil == p {
+    return errors.New(fmt.Sprintf("OneOfGetVmAttachmentsApiResponseData is nil"))
+  }
+  switch v.(type) {
+    case []VmAttachmentProjection:
+      p.oneOfType401 = v.([]VmAttachmentProjection)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.VmAttachmentProjection>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.VmAttachmentProjection>"
+    case []VmAttachment:
+      p.oneOfType0 = v.([]VmAttachment)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.VmAttachment>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.VmAttachment>"
+    case import1.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
+      *p.oneOfType400 = v.(import1.ErrorResponse)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+    default:
+      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
+  }
+  return nil
+}
+
+func (p *OneOfGetVmAttachmentsApiResponseData) GetValue() interface{} {
+  if "List<storage.v4.config.VmAttachmentProjection>" == *p.Discriminator {
+    return p.oneOfType401
+  }
+  if "List<storage.v4.config.VmAttachment>" == *p.Discriminator {
+    return p.oneOfType0
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
+  return nil
+}
+
+func (p *OneOfGetVmAttachmentsApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType401 := new([]VmAttachmentProjection)
+  if err := json.Unmarshal(b, vOneOfType401); err == nil {
+    if len(*vOneOfType401) == 0 || "storage.v4.config.VmAttachmentProjection" == *((*vOneOfType401)[0].ObjectType_) {
+      p.oneOfType401 = *vOneOfType401
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.VmAttachmentProjection>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.VmAttachmentProjection>"
+      return nil
+
+    }
+  }
+  vOneOfType0 := new([]VmAttachment)
+  if err := json.Unmarshal(b, vOneOfType0); err == nil {
+    if len(*vOneOfType0) == 0 || "storage.v4.config.VmAttachment" == *((*vOneOfType0)[0].ObjectType_) {
+      p.oneOfType0 = *vOneOfType0
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.VmAttachment>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.VmAttachment>"
+      return nil
+
+    }
+  }
+  vOneOfType400 := new(import1.ErrorResponse)
+  if err := json.Unmarshal(b, vOneOfType400); err == nil {
+    if "storage.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
+      *p.oneOfType400 = *vOneOfType400
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+      return nil
+    }
+    }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVmAttachmentsApiResponseData"))
+}
+
+func (p *OneOfGetVmAttachmentsApiResponseData) MarshalJSON() ([]byte, error) {
+  if "List<storage.v4.config.VmAttachmentProjection>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType401)
+  }
+  if "List<storage.v4.config.VmAttachment>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType0)
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType400)
+  }
+  return nil, errors.New("No value to marshal for OneOfGetVmAttachmentsApiResponseData")
 }
 
 type OneOfRevertVolumeGroupApiResponseData struct {
@@ -4231,6 +4754,117 @@ func (p *OneOfGetIscsiClientsApiResponseData) MarshalJSON() ([]byte, error) {
   return nil, errors.New("No value to marshal for OneOfGetIscsiClientsApiResponseData")
 }
 
+type OneOfGetCategoryAssociationsApiResponseData struct {
+  Discriminator *string `json:"-"`
+  ObjectType_ *string `json:"-"`
+  oneOfType401 []CategoryDetailsProjection `json:"-"`
+  oneOfType0 []CategoryDetails `json:"-"`
+  oneOfType400 *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetCategoryAssociationsApiResponseData() *OneOfGetCategoryAssociationsApiResponseData {
+  p := new(OneOfGetCategoryAssociationsApiResponseData)
+  p.Discriminator = new(string)
+  p.ObjectType_ = new(string)
+  return p
+}
+
+func (p *OneOfGetCategoryAssociationsApiResponseData) SetValue (v interface {}) error {
+  if nil == p {
+    return errors.New(fmt.Sprintf("OneOfGetCategoryAssociationsApiResponseData is nil"))
+  }
+  switch v.(type) {
+    case []CategoryDetailsProjection:
+      p.oneOfType401 = v.([]CategoryDetailsProjection)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.CategoryDetailsProjection>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.CategoryDetailsProjection>"
+    case []CategoryDetails:
+      p.oneOfType0 = v.([]CategoryDetails)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.CategoryDetails>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.CategoryDetails>"
+    case import1.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
+      *p.oneOfType400 = v.(import1.ErrorResponse)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+    default:
+      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
+  }
+  return nil
+}
+
+func (p *OneOfGetCategoryAssociationsApiResponseData) GetValue() interface{} {
+  if "List<storage.v4.config.CategoryDetailsProjection>" == *p.Discriminator {
+    return p.oneOfType401
+  }
+  if "List<storage.v4.config.CategoryDetails>" == *p.Discriminator {
+    return p.oneOfType0
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
+  return nil
+}
+
+func (p *OneOfGetCategoryAssociationsApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType401 := new([]CategoryDetailsProjection)
+  if err := json.Unmarshal(b, vOneOfType401); err == nil {
+    if len(*vOneOfType401) == 0 || "storage.v4.config.CategoryDetailsProjection" == *((*vOneOfType401)[0].ObjectType_) {
+      p.oneOfType401 = *vOneOfType401
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.CategoryDetailsProjection>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.CategoryDetailsProjection>"
+      return nil
+
+    }
+  }
+  vOneOfType0 := new([]CategoryDetails)
+  if err := json.Unmarshal(b, vOneOfType0); err == nil {
+    if len(*vOneOfType0) == 0 || "storage.v4.config.CategoryDetails" == *((*vOneOfType0)[0].ObjectType_) {
+      p.oneOfType0 = *vOneOfType0
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.CategoryDetails>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.CategoryDetails>"
+      return nil
+
+    }
+  }
+  vOneOfType400 := new(import1.ErrorResponse)
+  if err := json.Unmarshal(b, vOneOfType400); err == nil {
+    if "storage.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
+      *p.oneOfType400 = *vOneOfType400
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+      return nil
+    }
+    }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCategoryAssociationsApiResponseData"))
+}
+
+func (p *OneOfGetCategoryAssociationsApiResponseData) MarshalJSON() ([]byte, error) {
+  if "List<storage.v4.config.CategoryDetailsProjection>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType401)
+  }
+  if "List<storage.v4.config.CategoryDetails>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType0)
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType400)
+  }
+  return nil, errors.New("No value to marshal for OneOfGetCategoryAssociationsApiResponseData")
+}
+
 type OneOfDeleteVolumeDiskApiResponseData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
@@ -4429,6 +5063,117 @@ func (p *OneOfGetVolumeGroupMetadataInfoApiResponseData) MarshalJSON() ([]byte, 
     return json.Marshal(p.oneOfType400)
   }
   return nil, errors.New("No value to marshal for OneOfGetVolumeGroupMetadataInfoApiResponseData")
+}
+
+type OneOfGetVolumeDisksApiResponseData struct {
+  Discriminator *string `json:"-"`
+  ObjectType_ *string `json:"-"`
+  oneOfType401 []VolumeDiskProjection `json:"-"`
+  oneOfType0 []VolumeDisk `json:"-"`
+  oneOfType400 *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetVolumeDisksApiResponseData() *OneOfGetVolumeDisksApiResponseData {
+  p := new(OneOfGetVolumeDisksApiResponseData)
+  p.Discriminator = new(string)
+  p.ObjectType_ = new(string)
+  return p
+}
+
+func (p *OneOfGetVolumeDisksApiResponseData) SetValue (v interface {}) error {
+  if nil == p {
+    return errors.New(fmt.Sprintf("OneOfGetVolumeDisksApiResponseData is nil"))
+  }
+  switch v.(type) {
+    case []VolumeDiskProjection:
+      p.oneOfType401 = v.([]VolumeDiskProjection)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.VolumeDiskProjection>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.VolumeDiskProjection>"
+    case []VolumeDisk:
+      p.oneOfType0 = v.([]VolumeDisk)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.VolumeDisk>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.VolumeDisk>"
+    case import1.ErrorResponse:
+      if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
+      *p.oneOfType400 = v.(import1.ErrorResponse)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+    default:
+      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
+  }
+  return nil
+}
+
+func (p *OneOfGetVolumeDisksApiResponseData) GetValue() interface{} {
+  if "List<storage.v4.config.VolumeDiskProjection>" == *p.Discriminator {
+    return p.oneOfType401
+  }
+  if "List<storage.v4.config.VolumeDisk>" == *p.Discriminator {
+    return p.oneOfType0
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return *p.oneOfType400
+  }
+  return nil
+}
+
+func (p *OneOfGetVolumeDisksApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType401 := new([]VolumeDiskProjection)
+  if err := json.Unmarshal(b, vOneOfType401); err == nil {
+    if len(*vOneOfType401) == 0 || "storage.v4.config.VolumeDiskProjection" == *((*vOneOfType401)[0].ObjectType_) {
+      p.oneOfType401 = *vOneOfType401
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.VolumeDiskProjection>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.VolumeDiskProjection>"
+      return nil
+
+    }
+  }
+  vOneOfType0 := new([]VolumeDisk)
+  if err := json.Unmarshal(b, vOneOfType0); err == nil {
+    if len(*vOneOfType0) == 0 || "storage.v4.config.VolumeDisk" == *((*vOneOfType0)[0].ObjectType_) {
+      p.oneOfType0 = *vOneOfType0
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<storage.v4.config.VolumeDisk>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<storage.v4.config.VolumeDisk>"
+      return nil
+
+    }
+  }
+  vOneOfType400 := new(import1.ErrorResponse)
+  if err := json.Unmarshal(b, vOneOfType400); err == nil {
+    if "storage.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+          if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
+      *p.oneOfType400 = *vOneOfType400
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = *p.oneOfType400.ObjectType_
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = *p.oneOfType400.ObjectType_
+      return nil
+    }
+    }
+  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVolumeDisksApiResponseData"))
+}
+
+func (p *OneOfGetVolumeDisksApiResponseData) MarshalJSON() ([]byte, error) {
+  if "List<storage.v4.config.VolumeDiskProjection>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType401)
+  }
+  if "List<storage.v4.config.VolumeDisk>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType0)
+  }
+  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+    return json.Marshal(p.oneOfType400)
+  }
+  return nil, errors.New("No value to marshal for OneOfGetVolumeDisksApiResponseData")
 }
 
 type OneOfGetIscsiClientApiResponseData struct {
@@ -4744,92 +5489,6 @@ func (p *OneOfDetachVmApiResponseData) MarshalJSON() ([]byte, error) {
   return nil, errors.New("No value to marshal for OneOfDetachVmApiResponseData")
 }
 
-type OneOfGetCategoryAssociationsApiResponseData struct {
-  Discriminator *string `json:"-"`
-  ObjectType_ *string `json:"-"`
-  oneOfType0 []CategoryDetails `json:"-"`
-  oneOfType400 *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetCategoryAssociationsApiResponseData() *OneOfGetCategoryAssociationsApiResponseData {
-  p := new(OneOfGetCategoryAssociationsApiResponseData)
-  p.Discriminator = new(string)
-  p.ObjectType_ = new(string)
-  return p
-}
-
-func (p *OneOfGetCategoryAssociationsApiResponseData) SetValue (v interface {}) error {
-  if nil == p {
-    return errors.New(fmt.Sprintf("OneOfGetCategoryAssociationsApiResponseData is nil"))
-  }
-  switch v.(type) {
-    case []CategoryDetails:
-      p.oneOfType0 = v.([]CategoryDetails)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<storage.v4.config.CategoryDetails>"
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<storage.v4.config.CategoryDetails>"
-    case import1.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
-      *p.oneOfType400 = v.(import1.ErrorResponse)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-    default:
-      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
-  }
-  return nil
-}
-
-func (p *OneOfGetCategoryAssociationsApiResponseData) GetValue() interface{} {
-  if "List<storage.v4.config.CategoryDetails>" == *p.Discriminator {
-    return p.oneOfType0
-  }
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType400
-  }
-  return nil
-}
-
-func (p *OneOfGetCategoryAssociationsApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType0 := new([]CategoryDetails)
-  if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if len(*vOneOfType0) == 0 || "storage.v4.config.CategoryDetails" == *((*vOneOfType0)[0].ObjectType_) {
-      p.oneOfType0 = *vOneOfType0
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<storage.v4.config.CategoryDetails>"
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<storage.v4.config.CategoryDetails>"
-      return nil
-
-    }
-  }
-  vOneOfType400 := new(import1.ErrorResponse)
-  if err := json.Unmarshal(b, vOneOfType400); err == nil {
-    if "storage.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
-      *p.oneOfType400 = *vOneOfType400
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-      return nil
-    }
-    }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCategoryAssociationsApiResponseData"))
-}
-
-func (p *OneOfGetCategoryAssociationsApiResponseData) MarshalJSON() ([]byte, error) {
-  if "List<storage.v4.config.CategoryDetails>" == *p.Discriminator {
-    return json.Marshal(p.oneOfType0)
-  }
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType400)
-  }
-  return nil, errors.New("No value to marshal for OneOfGetCategoryAssociationsApiResponseData")
-}
-
 type OneOfUpdateIscsiClientApiResponseData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
@@ -5141,91 +5800,5 @@ func (p *OneOfGetExternalAttachmentsApiResponseData) MarshalJSON() ([]byte, erro
     return json.Marshal(p.oneOfType400)
   }
   return nil, errors.New("No value to marshal for OneOfGetExternalAttachmentsApiResponseData")
-}
-
-type OneOfGetVmAttachmentsApiResponseData struct {
-  Discriminator *string `json:"-"`
-  ObjectType_ *string `json:"-"`
-  oneOfType0 []VmAttachment `json:"-"`
-  oneOfType400 *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetVmAttachmentsApiResponseData() *OneOfGetVmAttachmentsApiResponseData {
-  p := new(OneOfGetVmAttachmentsApiResponseData)
-  p.Discriminator = new(string)
-  p.ObjectType_ = new(string)
-  return p
-}
-
-func (p *OneOfGetVmAttachmentsApiResponseData) SetValue (v interface {}) error {
-  if nil == p {
-    return errors.New(fmt.Sprintf("OneOfGetVmAttachmentsApiResponseData is nil"))
-  }
-  switch v.(type) {
-    case []VmAttachment:
-      p.oneOfType0 = v.([]VmAttachment)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<storage.v4.config.VmAttachment>"
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<storage.v4.config.VmAttachment>"
-    case import1.ErrorResponse:
-      if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
-      *p.oneOfType400 = v.(import1.ErrorResponse)
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-    default:
-      return errors.New(fmt.Sprintf("%T(%v) is not expected type", v,v))
-  }
-  return nil
-}
-
-func (p *OneOfGetVmAttachmentsApiResponseData) GetValue() interface{} {
-  if "List<storage.v4.config.VmAttachment>" == *p.Discriminator {
-    return p.oneOfType0
-  }
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return *p.oneOfType400
-  }
-  return nil
-}
-
-func (p *OneOfGetVmAttachmentsApiResponseData) UnmarshalJSON(b []byte) error {
-  vOneOfType0 := new([]VmAttachment)
-  if err := json.Unmarshal(b, vOneOfType0); err == nil {
-    if len(*vOneOfType0) == 0 || "storage.v4.config.VmAttachment" == *((*vOneOfType0)[0].ObjectType_) {
-      p.oneOfType0 = *vOneOfType0
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = "List<storage.v4.config.VmAttachment>"
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = "List<storage.v4.config.VmAttachment>"
-      return nil
-
-    }
-  }
-  vOneOfType400 := new(import1.ErrorResponse)
-  if err := json.Unmarshal(b, vOneOfType400); err == nil {
-    if "storage.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-          if nil == p.oneOfType400 {p.oneOfType400 = new(import1.ErrorResponse)}
-      *p.oneOfType400 = *vOneOfType400
-      if nil == p.Discriminator {p.Discriminator = new(string)}
-      *p.Discriminator = *p.oneOfType400.ObjectType_
-      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
-      *p.ObjectType_ = *p.oneOfType400.ObjectType_
-      return nil
-    }
-    }
-  return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVmAttachmentsApiResponseData"))
-}
-
-func (p *OneOfGetVmAttachmentsApiResponseData) MarshalJSON() ([]byte, error) {
-  if "List<storage.v4.config.VmAttachment>" == *p.Discriminator {
-    return json.Marshal(p.oneOfType0)
-  }
-  if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-    return json.Marshal(p.oneOfType400)
-  }
-  return nil, errors.New("No value to marshal for OneOfGetVmAttachmentsApiResponseData")
 }
 

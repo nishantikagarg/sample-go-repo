@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/config/config_model.go.
  *
- * Product version: 16.2.0-SNAPSHOT
+ * Product version: 16.7.0-SNAPSHOT
  *
  * Part of the Storage APIs
  *
@@ -286,7 +286,7 @@ type IPv4Address struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /**
-  Prefix length of the network to which this host IPv4 address belongs.
+  The prefix length of the network to which this host IPv4 address belongs.
   */
   PrefixLength *int `json:"prefixLength,omitempty"`
   
@@ -319,7 +319,7 @@ type IPv6Address struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /**
-  Prefix length of the network to which this host IPv6 address belongs.
+  The prefix length of the network to which this host IPv6 address belongs.
   */
   PrefixLength *int `json:"prefixLength,omitempty"`
   
