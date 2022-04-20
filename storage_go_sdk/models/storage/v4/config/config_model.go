@@ -1,7 +1,7 @@
 /*
  * Generated file models/storage/v4/config/config_model.go.
  *
- * Product version: 16.2.0-SNAPSHOT
+ * Product version: 16.6.0-SNAPSHOT
  *
  * Part of the Storage APIs
  *
@@ -1318,6 +1318,8 @@ type IscsiClient struct {
   Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  
+  AttachmentSite *VolumeGroupAttachmentSite `json:"attachmentSite,omitempty"`
   /**
   iSCSI initiator client secret in case of CHAP authentication. This field should not be provided in case the authentication type is not set to CHAP.
   */
@@ -1338,6 +1340,10 @@ type IscsiClient struct {
   IscsiInitiatorName *string `json:"iscsiInitiatorName,omitempty"`
   
   IscsiInitiatorNetworkId *import4.IPAddressOrFQDN `json:"iscsiInitiatorNetworkId,omitempty"`
+  /**
+  List of iSCSI targets that will be visible and accessible to the iSCSI client.
+  */
+  IscsiTargetNames []string `json:"iscsiTargetNames,omitempty"`
   /**
   A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
   */
@@ -1373,6 +1379,8 @@ type IscsiClientProjection struct {
   Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  
+  AttachmentSite *VolumeGroupAttachmentSite `json:"attachmentSite,omitempty"`
   /**
   iSCSI initiator client secret in case of CHAP authentication. This field should not be provided in case the authentication type is not set to CHAP.
   */
@@ -1393,6 +1401,10 @@ type IscsiClientProjection struct {
   IscsiInitiatorName *string `json:"iscsiInitiatorName,omitempty"`
   
   IscsiInitiatorNetworkId *import4.IPAddressOrFQDN `json:"iscsiInitiatorNetworkId,omitempty"`
+  /**
+  List of iSCSI targets that will be visible and accessible to the iSCSI client.
+  */
+  IscsiTargetNames []string `json:"iscsiTargetNames,omitempty"`
   /**
   A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
   */
@@ -2256,6 +2268,68 @@ func NewVolumeGroup() *VolumeGroup {
 }
 
 
+
+
+/**
+The site where the Volume Group attach operation should be processed.
+*/
+type VolumeGroupAttachmentSite int
+
+const(
+  VOLUMEGROUPATTACHMENTSITE_UNKNOWN VolumeGroupAttachmentSite = 0
+  VOLUMEGROUPATTACHMENTSITE_REDACTED VolumeGroupAttachmentSite = 1
+  VOLUMEGROUPATTACHMENTSITE_PRIMARY VolumeGroupAttachmentSite = 2
+  VOLUMEGROUPATTACHMENTSITE_SECONDARY VolumeGroupAttachmentSite = 3
+)
+
+// returns the name of the enum given an ordinal number
+func (e *VolumeGroupAttachmentSite) name(index int) string {
+  names := [...]string {
+    "$UNKNOWN",
+    "$REDACTED",
+    "PRIMARY",
+    "SECONDARY",
+  }
+  if index < 0 || index >= len(names) {
+    return "$UNKNOWN"
+  }
+  return names[index]
+}
+// returns the enum type given a string value
+func (e *VolumeGroupAttachmentSite) index(name string) VolumeGroupAttachmentSite {
+  names := [...]string {
+    "$UNKNOWN",
+    "$REDACTED",
+    "PRIMARY",
+    "SECONDARY",
+  }
+  for idx := range names {
+    if names[idx] == name {
+      return VolumeGroupAttachmentSite(idx)
+    }
+  }
+  return VOLUMEGROUPATTACHMENTSITE_UNKNOWN
+}
+
+func (e *VolumeGroupAttachmentSite) UnmarshalJSON(b []byte) error {
+  var enumStr string
+  if err := json.Unmarshal(b, &enumStr); err != nil {
+    return errors.New(fmt.Sprintf("Unable to unmarshal for VolumeGroupAttachmentSite:%s", err))
+  }
+  *e = e.index(enumStr)
+  return nil
+}
+
+func (e *VolumeGroupAttachmentSite) MarshalJSON() ([]byte, error) {
+  b := bytes.NewBufferString(`"`)
+  b.WriteString(e.name(int(*e)))
+  b.WriteString(`"`)
+  return b.Bytes(), nil
+}
+
+func (e VolumeGroupAttachmentSite) Ref() *VolumeGroupAttachmentSite {
+  return &e
+}
 
 
 /**

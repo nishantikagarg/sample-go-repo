@@ -3,11 +3,11 @@ package api
 
 import (
     "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/client"
+	"strings"
 	import1 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/storage/v4/config"
 	"encoding/json"
 	"net/http"
     "net/url"
-    "strings"
 )
 
 type IscsiClientApi struct {
@@ -28,10 +28,16 @@ func NewIscsiClientApi() *IscsiClientApi {
 
     parameters:-
     -> clientId (string) (required) : The external identifier of the iSCSI client.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.GetIscsiClientApiResponse, error)
 */
-func (api *IscsiClientApi) GetIscsiClientById(clientId string) (*import1.GetIscsiClientApiResponse, error) {
+func (api *IscsiClientApi) GetIscsiClientById(clientId string, args ...map[string]interface{}) (*import1.GetIscsiClientApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/iscsi-clients/{clientId}"
 
 
@@ -47,6 +53,13 @@ func (api *IscsiClientApi) GetIscsiClientById(clientId string) (*import1.GetIscs
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -65,10 +78,16 @@ func (api *IscsiClientApi) GetIscsiClientById(clientId string) (*import1.GetIscs
     parameters:-
     -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource.  Any number out of this range will be set to its nearest bound.  In other words, a page number of less than 0 would be set to 0 and a page number greater than the total available pages would be set to the last page. 
     -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will be set to the default maximum number of records, which is 100. 
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.GetIscsiClientsApiResponse, error)
 */
-func (api *IscsiClientApi) GetIscsiClients(page_ *int, limit_ *int) (*import1.GetIscsiClientsApiResponse, error) {
+func (api *IscsiClientApi) GetIscsiClients(page_ *int, limit_ *int, args ...map[string]interface{}) (*import1.GetIscsiClientsApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/iscsi-clients"
 
 
@@ -90,6 +109,13 @@ func (api *IscsiClientApi) GetIscsiClients(page_ *int, limit_ *int) (*import1.Ge
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -108,10 +134,16 @@ func (api *IscsiClientApi) GetIscsiClients(page_ *int, limit_ *int) (*import1.Ge
     parameters:-
     -> body (storage.v4.config.IscsiClient) (required) : A model that represents iSCSI client that can be associated with a Volume Group as an external attachment.
     -> clientId (string) (required) : The external identifier of the iSCSI client.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.UpdateIscsiClientApiResponse, error)
 */
-func (api *IscsiClientApi) UpdateIscsiClientById(body *import1.IscsiClient, clientId string) (*import1.UpdateIscsiClientApiResponse, error) {
+func (api *IscsiClientApi) UpdateIscsiClientById(body *import1.IscsiClient, clientId string, args ...map[string]interface{}) (*import1.UpdateIscsiClientApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/iscsi-clients/{clientId}"
 
     // verify the required parameter 'body' is set
@@ -131,6 +163,13 @@ func (api *IscsiClientApi) UpdateIscsiClientById(body *import1.IscsiClient, clie
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPatch, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)

@@ -1,7 +1,7 @@
 /*
  * Generated file models/storage/v4/error/error_model.go.
  *
- * Product version: 16.2.0-SNAPSHOT
+ * Product version: 16.6.0-SNAPSHOT
  *
  * Part of the Storage APIs
  *

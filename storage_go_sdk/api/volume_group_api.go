@@ -3,12 +3,12 @@ package api
 
 import (
     "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/client"
+	"strings"
 	import1 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/storage/v4/config"
 	import2 "github.com/nishantikagarg/sample-go-repo/storage_go_sdk/v16/models/common/v1/config"
 	"encoding/json"
 	"net/http"
     "net/url"
-    "strings"
 )
 
 type VolumeGroupApi struct {
@@ -30,10 +30,16 @@ func NewVolumeGroupApi() *VolumeGroupApi {
     parameters:-
     -> body (storage.v4.config.CategoryEntityReferences) (required) : The list of categories to be associated/disassociated with the Volume Group.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.AssociateCategoryApiResponse, error)
 */
-func (api *VolumeGroupApi) AssociateCategory(body *import1.CategoryEntityReferences, volumeGroupExtId string) (*import1.AssociateCategoryApiResponse, error) {
+func (api *VolumeGroupApi) AssociateCategory(body *import1.CategoryEntityReferences, volumeGroupExtId string, args ...map[string]interface{}) (*import1.AssociateCategoryApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/associate-category"
 
     // verify the required parameter 'body' is set
@@ -53,6 +59,13 @@ func (api *VolumeGroupApi) AssociateCategory(body *import1.CategoryEntityReferen
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -71,10 +84,16 @@ func (api *VolumeGroupApi) AssociateCategory(body *import1.CategoryEntityReferen
     parameters:-
     -> body (storage.v4.config.IscsiClient) (required) : A model that represents iSCSI client that can be associated with a Volume Group as an external attachment.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.AttachIscsiClientApiResponse, error)
 */
-func (api *VolumeGroupApi) AttachIscsiClient(body *import1.IscsiClient, volumeGroupExtId string) (*import1.AttachIscsiClientApiResponse, error) {
+func (api *VolumeGroupApi) AttachIscsiClient(body *import1.IscsiClient, volumeGroupExtId string, args ...map[string]interface{}) (*import1.AttachIscsiClientApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/attach-iscsi-client"
 
     // verify the required parameter 'body' is set
@@ -94,6 +113,13 @@ func (api *VolumeGroupApi) AttachIscsiClient(body *import1.IscsiClient, volumeGr
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -112,10 +138,16 @@ func (api *VolumeGroupApi) AttachIscsiClient(body *import1.IscsiClient, volumeGr
     parameters:-
     -> body (storage.v4.config.VmAttachment) (required) : A model that represents a VM reference that can be associated with a Volume Group as a hypervisor attachment.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.AttachVmApiResponse, error)
 */
-func (api *VolumeGroupApi) AttachVm(body *import1.VmAttachment, volumeGroupExtId string) (*import1.AttachVmApiResponse, error) {
+func (api *VolumeGroupApi) AttachVm(body *import1.VmAttachment, volumeGroupExtId string, args ...map[string]interface{}) (*import1.AttachVmApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/attach-vm"
 
     // verify the required parameter 'body' is set
@@ -135,6 +167,13 @@ func (api *VolumeGroupApi) AttachVm(body *import1.VmAttachment, volumeGroupExtId
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -153,10 +192,16 @@ func (api *VolumeGroupApi) AttachVm(body *import1.VmAttachment, volumeGroupExtId
     parameters:-
     -> body (storage.v4.config.VolumeDisk) (required) : A model that represents Volume Disk which is associated with a Volume Group, and is supported by a backing file on DSF.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.CreateVolumeDiskApiResponse, error)
 */
-func (api *VolumeGroupApi) CreateVolumeDisk(body *import1.VolumeDisk, volumeGroupExtId string) (*import1.CreateVolumeDiskApiResponse, error) {
+func (api *VolumeGroupApi) CreateVolumeDisk(body *import1.VolumeDisk, volumeGroupExtId string, args ...map[string]interface{}) (*import1.CreateVolumeDiskApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/disks"
 
     // verify the required parameter 'body' is set
@@ -176,6 +221,13 @@ func (api *VolumeGroupApi) CreateVolumeDisk(body *import1.VolumeDisk, volumeGrou
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -193,10 +245,16 @@ func (api *VolumeGroupApi) CreateVolumeDisk(body *import1.VolumeDisk, volumeGrou
 
     parameters:-
     -> body (storage.v4.config.VolumeGroup) (required) : A model that represents Volume Group resources.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.CreateVolumeGroupApiResponse, error)
 */
-func (api *VolumeGroupApi) CreateVolumeGroup(body *import1.VolumeGroup) (*import1.CreateVolumeGroupApiResponse, error) {
+func (api *VolumeGroupApi) CreateVolumeGroup(body *import1.VolumeGroup, args ...map[string]interface{}) (*import1.CreateVolumeGroupApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups"
 
     // verify the required parameter 'body' is set
@@ -214,6 +272,13 @@ func (api *VolumeGroupApi) CreateVolumeGroup(body *import1.VolumeGroup) (*import
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -232,10 +297,16 @@ func (api *VolumeGroupApi) CreateVolumeGroup(body *import1.VolumeGroup) (*import
     parameters:-
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
     -> diskExtId (string) (required) : The external identifier of the Volume Disk.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.DeleteVolumeDiskApiResponse, error)
 */
-func (api *VolumeGroupApi) DeleteVolumeDisk(volumeGroupExtId string, diskExtId string) (*import1.DeleteVolumeDiskApiResponse, error) {
+func (api *VolumeGroupApi) DeleteVolumeDisk(volumeGroupExtId string, diskExtId string, args ...map[string]interface{}) (*import1.DeleteVolumeDiskApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/disks/{diskExtId}"
 
 
@@ -252,6 +323,13 @@ func (api *VolumeGroupApi) DeleteVolumeDisk(volumeGroupExtId string, diskExtId s
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -269,10 +347,16 @@ func (api *VolumeGroupApi) DeleteVolumeDisk(volumeGroupExtId string, diskExtId s
 
     parameters:-
     -> extId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.DeleteVolumeGroupApiResponse, error)
 */
-func (api *VolumeGroupApi) DeleteVolumeGroupById(extId string) (*import1.DeleteVolumeGroupApiResponse, error) {
+func (api *VolumeGroupApi) DeleteVolumeGroupById(extId string, args ...map[string]interface{}) (*import1.DeleteVolumeGroupApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{extId}"
 
 
@@ -288,6 +372,13 @@ func (api *VolumeGroupApi) DeleteVolumeGroupById(extId string) (*import1.DeleteV
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -306,10 +397,16 @@ func (api *VolumeGroupApi) DeleteVolumeGroupById(extId string) (*import1.DeleteV
     parameters:-
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
     -> clientId (string) (required) : The external identifier of the iSCSI client.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.DetachIscsiClientApiResponse, error)
 */
-func (api *VolumeGroupApi) DetachIscsiClient(volumeGroupExtId string, clientId string) (*import1.DetachIscsiClientApiResponse, error) {
+func (api *VolumeGroupApi) DetachIscsiClient(volumeGroupExtId string, clientId string, args ...map[string]interface{}) (*import1.DetachIscsiClientApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/detach-iscsi-client/{clientId}"
 
 
@@ -326,6 +423,13 @@ func (api *VolumeGroupApi) DetachIscsiClient(volumeGroupExtId string, clientId s
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -344,10 +448,16 @@ func (api *VolumeGroupApi) DetachIscsiClient(volumeGroupExtId string, clientId s
     parameters:-
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
     -> vmExtId (string) (required) : The external identifier of the VM.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.DetachVmApiResponse, error)
 */
-func (api *VolumeGroupApi) DetachVm(volumeGroupExtId string, vmExtId string) (*import1.DetachVmApiResponse, error) {
+func (api *VolumeGroupApi) DetachVm(volumeGroupExtId string, vmExtId string, args ...map[string]interface{}) (*import1.DetachVmApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/detach-vm/{vmExtId}"
 
 
@@ -364,6 +474,13 @@ func (api *VolumeGroupApi) DetachVm(volumeGroupExtId string, vmExtId string) (*i
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -382,10 +499,16 @@ func (api *VolumeGroupApi) DetachVm(volumeGroupExtId string, vmExtId string) (*i
     parameters:-
     -> body (storage.v4.config.CategoryEntityReferences) (required) : The list of categories to be associated/disassociated with the Volume Group.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.DisassociateCategoryApiResponse, error)
 */
-func (api *VolumeGroupApi) DisassociateCategory(body *import1.CategoryEntityReferences, volumeGroupExtId string) (*import1.DisassociateCategoryApiResponse, error) {
+func (api *VolumeGroupApi) DisassociateCategory(body *import1.CategoryEntityReferences, volumeGroupExtId string, args ...map[string]interface{}) (*import1.DisassociateCategoryApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/disassociate-category"
 
     // verify the required parameter 'body' is set
@@ -405,6 +528,13 @@ func (api *VolumeGroupApi) DisassociateCategory(body *import1.CategoryEntityRefe
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -424,10 +554,16 @@ func (api *VolumeGroupApi) DisassociateCategory(body *import1.CategoryEntityRefe
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
     -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource.  Any number out of this range will be set to its nearest bound.  In other words, a page number of less than 0 would be set to 0 and a page number greater than the total available pages would be set to the last page. 
     -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will be set to the default maximum number of records, which is 100. 
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.GetCategoryAssociationsApiResponse, error)
 */
-func (api *VolumeGroupApi) GetCategoryAssociations(volumeGroupExtId string, page_ *int, limit_ *int) (*import1.GetCategoryAssociationsApiResponse, error) {
+func (api *VolumeGroupApi) GetCategoryAssociations(volumeGroupExtId string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import1.GetCategoryAssociationsApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/category-associations"
 
 
@@ -451,6 +587,13 @@ func (api *VolumeGroupApi) GetCategoryAssociations(volumeGroupExtId string, page
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -470,10 +613,16 @@ func (api *VolumeGroupApi) GetCategoryAssociations(volumeGroupExtId string, page
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
     -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource.  Any number out of this range will be set to its nearest bound.  In other words, a page number of less than 0 would be set to 0 and a page number greater than the total available pages would be set to the last page. 
     -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will be set to the default maximum number of records, which is 100. 
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.GetExternalAttachmentsApiResponse, error)
 */
-func (api *VolumeGroupApi) GetExternalAttachments(volumeGroupExtId string, page_ *int, limit_ *int) (*import1.GetExternalAttachmentsApiResponse, error) {
+func (api *VolumeGroupApi) GetExternalAttachments(volumeGroupExtId string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import1.GetExternalAttachmentsApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/iscsi-client-attachments"
 
 
@@ -497,6 +646,13 @@ func (api *VolumeGroupApi) GetExternalAttachments(volumeGroupExtId string, page_
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -516,10 +672,16 @@ func (api *VolumeGroupApi) GetExternalAttachments(volumeGroupExtId string, page_
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
     -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource.  Any number out of this range will be set to its nearest bound.  In other words, a page number of less than 0 would be set to 0 and a page number greater than the total available pages would be set to the last page. 
     -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will be set to the default maximum number of records, which is 100. 
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.GetVmAttachmentsApiResponse, error)
 */
-func (api *VolumeGroupApi) GetVmAttachments(volumeGroupExtId string, page_ *int, limit_ *int) (*import1.GetVmAttachmentsApiResponse, error) {
+func (api *VolumeGroupApi) GetVmAttachments(volumeGroupExtId string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import1.GetVmAttachmentsApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/vm-attachments"
 
 
@@ -543,6 +705,13 @@ func (api *VolumeGroupApi) GetVmAttachments(volumeGroupExtId string, page_ *int,
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -561,10 +730,16 @@ func (api *VolumeGroupApi) GetVmAttachments(volumeGroupExtId string, page_ *int,
     parameters:-
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
     -> diskExtId (string) (required) : The external identifier of the Volume Disk.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.GetVolumeDiskApiResponse, error)
 */
-func (api *VolumeGroupApi) GetVolumeDiskById(volumeGroupExtId string, diskExtId string) (*import1.GetVolumeDiskApiResponse, error) {
+func (api *VolumeGroupApi) GetVolumeDiskById(volumeGroupExtId string, diskExtId string, args ...map[string]interface{}) (*import1.GetVolumeDiskApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/disks/{diskExtId}"
 
 
@@ -581,6 +756,13 @@ func (api *VolumeGroupApi) GetVolumeDiskById(volumeGroupExtId string, diskExtId 
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -600,10 +782,16 @@ func (api *VolumeGroupApi) GetVolumeDiskById(volumeGroupExtId string, diskExtId 
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
     -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource.  Any number out of this range will be set to its nearest bound.  In other words, a page number of less than 0 would be set to 0 and a page number greater than the total available pages would be set to the last page. 
     -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will be set to the default maximum number of records, which is 100. 
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.GetVolumeDisksApiResponse, error)
 */
-func (api *VolumeGroupApi) GetVolumeDisks(volumeGroupExtId string, page_ *int, limit_ *int) (*import1.GetVolumeDisksApiResponse, error) {
+func (api *VolumeGroupApi) GetVolumeDisks(volumeGroupExtId string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import1.GetVolumeDisksApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/disks"
 
 
@@ -627,6 +815,13 @@ func (api *VolumeGroupApi) GetVolumeDisks(volumeGroupExtId string, page_ *int, l
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -644,10 +839,16 @@ func (api *VolumeGroupApi) GetVolumeDisks(volumeGroupExtId string, page_ *int, l
 
     parameters:-
     -> extId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.GetVolumeGroupApiResponse, error)
 */
-func (api *VolumeGroupApi) GetVolumeGroupById(extId string) (*import1.GetVolumeGroupApiResponse, error) {
+func (api *VolumeGroupApi) GetVolumeGroupById(extId string, args ...map[string]interface{}) (*import1.GetVolumeGroupApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{extId}"
 
 
@@ -663,6 +864,13 @@ func (api *VolumeGroupApi) GetVolumeGroupById(extId string) (*import1.GetVolumeG
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -680,10 +888,16 @@ func (api *VolumeGroupApi) GetVolumeGroupById(extId string) (*import1.GetVolumeG
 
     parameters:-
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.GetVolumeGroupMetadataInfoApiResponse, error)
 */
-func (api *VolumeGroupApi) GetVolumeGroupMetadataInfo(volumeGroupExtId string) (*import1.GetVolumeGroupMetadataInfoApiResponse, error) {
+func (api *VolumeGroupApi) GetVolumeGroupMetadataInfo(volumeGroupExtId string, args ...map[string]interface{}) (*import1.GetVolumeGroupMetadataInfoApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/metadata-info"
 
 
@@ -699,6 +913,13 @@ func (api *VolumeGroupApi) GetVolumeGroupMetadataInfo(volumeGroupExtId string) (
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -717,10 +938,16 @@ func (api *VolumeGroupApi) GetVolumeGroupMetadataInfo(volumeGroupExtId string) (
     parameters:-
     -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource.  Any number out of this range will be set to its nearest bound.  In other words, a page number of less than 0 would be set to 0 and a page number greater than the total available pages would be set to the last page. 
     -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will be set to the default maximum number of records, which is 100. 
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.GetVolumeGroupsApiResponse, error)
 */
-func (api *VolumeGroupApi) GetVolumeGroups(page_ *int, limit_ *int) (*import1.GetVolumeGroupsApiResponse, error) {
+func (api *VolumeGroupApi) GetVolumeGroups(page_ *int, limit_ *int, args ...map[string]interface{}) (*import1.GetVolumeGroupsApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups"
 
 
@@ -742,6 +969,13 @@ func (api *VolumeGroupApi) GetVolumeGroups(page_ *int, limit_ *int) (*import1.Ge
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -760,10 +994,16 @@ func (api *VolumeGroupApi) GetVolumeGroups(page_ *int, limit_ *int) (*import1.Ge
     parameters:-
     -> body (storage.v4.config.VolumeGroupMigrationSpec) (required) : Specification for the migrate action on the Volume Group.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.MigrateVolumeGroupApiResponse, error)
 */
-func (api *VolumeGroupApi) MigrateVolumeGroup(body *import1.VolumeGroupMigrationSpec, volumeGroupExtId string) (*import1.MigrateVolumeGroupApiResponse, error) {
+func (api *VolumeGroupApi) MigrateVolumeGroup(body *import1.VolumeGroupMigrationSpec, volumeGroupExtId string, args ...map[string]interface{}) (*import1.MigrateVolumeGroupApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/migrate"
 
     // verify the required parameter 'body' is set
@@ -783,6 +1023,13 @@ func (api *VolumeGroupApi) MigrateVolumeGroup(body *import1.VolumeGroupMigration
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -800,10 +1047,16 @@ func (api *VolumeGroupApi) MigrateVolumeGroup(body *import1.VolumeGroupMigration
 
     parameters:-
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.PauseVolumeGroupSynchronousReplicationApiResponse, error)
 */
-func (api *VolumeGroupApi) PauseVolumeGroupSynchronousReplication(volumeGroupExtId string) (*import1.PauseVolumeGroupSynchronousReplicationApiResponse, error) {
+func (api *VolumeGroupApi) PauseVolumeGroupSynchronousReplication(volumeGroupExtId string, args ...map[string]interface{}) (*import1.PauseVolumeGroupSynchronousReplicationApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/pause-synchronous-replication"
 
 
@@ -819,6 +1072,13 @@ func (api *VolumeGroupApi) PauseVolumeGroupSynchronousReplication(volumeGroupExt
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -836,10 +1096,16 @@ func (api *VolumeGroupApi) PauseVolumeGroupSynchronousReplication(volumeGroupExt
 
     parameters:-
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.ResumeVolumeGroupSynchronousReplicationApiResponse, error)
 */
-func (api *VolumeGroupApi) ResumeVolumeGroupSynchronousReplication(volumeGroupExtId string) (*import1.ResumeVolumeGroupSynchronousReplicationApiResponse, error) {
+func (api *VolumeGroupApi) ResumeVolumeGroupSynchronousReplication(volumeGroupExtId string, args ...map[string]interface{}) (*import1.ResumeVolumeGroupSynchronousReplicationApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/resume-synchronous-replication"
 
 
@@ -855,6 +1121,13 @@ func (api *VolumeGroupApi) ResumeVolumeGroupSynchronousReplication(volumeGroupEx
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -873,10 +1146,16 @@ func (api *VolumeGroupApi) ResumeVolumeGroupSynchronousReplication(volumeGroupEx
     parameters:-
     -> body (storage.v4.config.VolumeGroupRevertSpec) (required) : Specify the Volume Group recovery point Id to which the Volume Group would be reverted.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.RevertVolumeGroupApiResponse, error)
 */
-func (api *VolumeGroupApi) RevertVolumeGroup(body *import1.VolumeGroupRevertSpec, volumeGroupExtId string) (*import1.RevertVolumeGroupApiResponse, error) {
+func (api *VolumeGroupApi) RevertVolumeGroup(body *import1.VolumeGroupRevertSpec, volumeGroupExtId string, args ...map[string]interface{}) (*import1.RevertVolumeGroupApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/revert"
 
     // verify the required parameter 'body' is set
@@ -896,6 +1175,13 @@ func (api *VolumeGroupApi) RevertVolumeGroup(body *import1.VolumeGroupRevertSpec
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -915,10 +1201,16 @@ func (api *VolumeGroupApi) RevertVolumeGroup(body *import1.VolumeGroupRevertSpec
     -> body (storage.v4.config.VolumeDisk) (required) : A model that represents Volume Disk which is associated with a Volume Group, and is supported by a backing file on DSF.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
     -> diskExtId (string) (required) : The external identifier of the Volume Disk.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.UpdateVolumeDiskApiResponse, error)
 */
-func (api *VolumeGroupApi) UpdateVolumeDisk(body *import1.VolumeDisk, volumeGroupExtId string, diskExtId string) (*import1.UpdateVolumeDiskApiResponse, error) {
+func (api *VolumeGroupApi) UpdateVolumeDisk(body *import1.VolumeDisk, volumeGroupExtId string, diskExtId string, args ...map[string]interface{}) (*import1.UpdateVolumeDiskApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/disks/{diskExtId}"
 
     // verify the required parameter 'body' is set
@@ -939,6 +1231,13 @@ func (api *VolumeGroupApi) UpdateVolumeDisk(body *import1.VolumeDisk, volumeGrou
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPatch, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -957,10 +1256,16 @@ func (api *VolumeGroupApi) UpdateVolumeDisk(body *import1.VolumeDisk, volumeGrou
     parameters:-
     -> body (storage.v4.config.VolumeGroup) (required) : A model that represents Volume Group resources.
     -> extId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.UpdateVolumeGroupApiResponse, error)
 */
-func (api *VolumeGroupApi) UpdateVolumeGroupById(body *import1.VolumeGroup, extId string) (*import1.UpdateVolumeGroupApiResponse, error) {
+func (api *VolumeGroupApi) UpdateVolumeGroupById(body *import1.VolumeGroup, extId string, args ...map[string]interface{}) (*import1.UpdateVolumeGroupApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{extId}"
 
     // verify the required parameter 'body' is set
@@ -980,6 +1285,13 @@ func (api *VolumeGroupApi) UpdateVolumeGroupById(body *import1.VolumeGroup, extI
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPatch, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -998,10 +1310,16 @@ func (api *VolumeGroupApi) UpdateVolumeGroupById(body *import1.VolumeGroup, extI
     parameters:-
     -> body (common.v1.config.Metadata) (required) : The list of metadata information associated with the Volume Group to be updated.
     -> volumeGroupExtId (string) (required) : The external identifier of the Volume Group.
+    -> args (map[string]interface{}) (optional) : Additional Arguments
 
     returns: (storage.v4.config.UpdateVolumeGroupMetadataInfoApiResponse, error)
 */
-func (api *VolumeGroupApi) UpdateVolumeGroupMetadataInfo(body *import2.Metadata, volumeGroupExtId string) (*import1.UpdateVolumeGroupMetadataInfoApiResponse, error) {
+func (api *VolumeGroupApi) UpdateVolumeGroupMetadataInfo(body *import2.Metadata, volumeGroupExtId string, args ...map[string]interface{}) (*import1.UpdateVolumeGroupMetadataInfoApiResponse, error) {
+    argMap := make(map[string]interface{})
+	if len(args) > 0 {
+        argMap = args[0]
+    }
+
     uri := "/api/storage/v4.0.a3/config/volume-groups/{volumeGroupExtId}/$actions/update-metadata-info"
 
     // verify the required parameter 'body' is set
@@ -1021,6 +1339,13 @@ func (api *VolumeGroupApi) UpdateVolumeGroupMetadataInfo(body *import2.Metadata,
     // to determine the Accept header 
 	accepts := []string{"application/json"} 
 
+    // Header Params
+    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
+        headerParams["If-Match"] = ifMatch
+    }
+    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
+        headerParams["If-None-Match"] = ifNoneMatch
+    }
     authNames := []string{}
 
     responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
