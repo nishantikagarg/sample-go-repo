@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/templates/templates_model.go.
  *
- * Product version: 16.2.0-SNAPSHOT
+ * Product version: 16.7.0-SNAPSHOT
  *
  * Part of the Catalog REST API
  *
